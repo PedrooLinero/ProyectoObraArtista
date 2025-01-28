@@ -17,6 +17,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import ArtTrackIcon from "@mui/icons-material/ArtTrack"; // Icono para Obras
+import BrushIcon from "@mui/icons-material/Brush"; // Icono para Artistas
 import LOGO_MUSEO_ARTE from "../assets/LOGO_MUSEO_ARTE.png";
 import FOTO_FONDO from "../assets/FOTO_FONDO.jpg";
 
@@ -37,53 +39,67 @@ function Menu() {
     setArtistasOpen(!artistasOpen);
   };
 
-
   return (
     <>
       {/* Navbar Superior */}
       <AppBar position="static" sx={{ backgroundColor: "#24221e" }}>
         <Toolbar>
-          <Box sx={{ flexGrow: 1 }}>
+          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
             <img src={LOGO_MUSEO_ARTE} height="125" alt="Museo de Arte" />
           </Box>
           <IconButton color="inherit" edge="end" onClick={toggleDrawer}>
-            <MenuIcon />
+            <MenuIcon sx={{ color: '#c98c26' }} />
           </IconButton>
         </Toolbar>
       </AppBar>
 
       {/* Drawer Lateral */}
-      <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer}>
+      <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer} sx={{
+        "& .MuiDrawer-paper": {
+          backgroundColor: "#24221e",
+        },
+      }}>
         <Box sx={{ width: 250, paddingTop: 2 }}>
           <List>
-            {/* Menú de Obras */}
+            {/* Menú de Obras con Icono */}
             <ListItem button onClick={toggleObrasMenu}>
-              <ListItemText primary="Obras" />
-              {obrasOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              <ArtTrackIcon sx={{ marginRight: 1, color: '#b57918' }} /> {/* Icono de Obras */}
+              <ListItemText primary="Obras" sx={{ color: "#b57918" }} />
+              {obrasOpen ? (
+                <ExpandLessIcon sx={{ color: "#b57918" }} /> 
+              ) : (
+                <ExpandMoreIcon sx={{ color: "#b57918" }} /> 
+              )}
             </ListItem>
             <Collapse in={obrasOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItem button sx={{ pl: 4 }}>
-                  <ListItemText primary="Alta de Obras" />
+                  <ListItemText primary="Alta de Obras" sx={{ color: "#d9a95b" }} />
                 </ListItem>
                 <ListItem button sx={{ pl: 4 }}>
-                  <ListItemText primary="Lista de Obras" />
+                  <ListItemText primary="Lista de Obras" sx={{ color: "#d9a95b" }} />
                 </ListItem>
               </List>
             </Collapse>
 
-            {/* Menú de Artistas */}
+
+            {/* Menú de Artistas con Icono */}
             <ListItem button onClick={toggleArtistasMenu}>
-              <ListItemText primary="Artistas" />
-              {artistasOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              <BrushIcon sx={{ marginRight: 1, color: '#b57918' }} /> {/* Icono de Artistas */}
+              <ListItemText primary="Artistas" sx={{ color: "#b57918" }} />
+              {artistasOpen ? (
+                <ExpandLessIcon sx={{ color: "#b57918" }} /> 
+              ) : (
+                <ExpandMoreIcon sx={{ color: "#b57918" }} /> 
+              )}
             </ListItem>
             <Collapse in={artistasOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItem button sx={{ pl: 4 }}>
-                  <ListItemText primary="Alta de Artistas" />
+                  <ListItemText primary="Alta de Artistas" sx={{ color: "#d9a95b" }} />
                 </ListItem>
                 <ListItem button sx={{ pl: 4 }}>
-                  <ListItemText primary="Lista de Artistas" />
+                  <ListItemText primary="Lista de Artistas" sx={{ color: "#d9a95b" }} />
                 </ListItem>
               </List>
             </Collapse>
