@@ -8,16 +8,39 @@ import "@fontsource/roboto/700.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-
-
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
+import AltaObras from "./components/AltaObras";
+import ListaObras from "./components/ListaObras";
+import AltaArtistas from "./components/AltaArtistas";
+import ListaArtistas from "./components/ListaArtistas";
+import HomeContent from "./components/HomeContent";
 
-let router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
-    element : <Home />,
-    children: [   // Los hijos se renderizan en el elemento <Outlet /> del padre
+    element: <Home />,
+    children: [
+      {
+        path: "/",
+        element: <HomeContent />,
+      },
+      {
+        path: "altaobras",
+        element: <AltaObras />,
+      },
+      {
+        path: "listaobras",
+        element: <ListaObras />,
+      },
+      {
+        path: "altaartistas",
+        element: <AltaArtistas />,
+      },
+      {
+        path: "listaartistas",
+        element: <ListaArtistas />,
+      },
     ],
   },
 ]);
