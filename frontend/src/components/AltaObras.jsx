@@ -8,9 +8,9 @@ import { apiUrl } from "../pages/config";
 function AltaObras() {
   const [datos, setDatos] = useState({
     nombre: "",
-    fechaCreacion: "",
     descripcion: "",
-    artista: "",
+    fecha: "",
+    // artista: "",
     precio: "",
   });
 
@@ -22,6 +22,8 @@ function AltaObras() {
 
     // Enviamos los datos mediante fetch
     try{
+      console.log(apiUrl);
+      console.log(datos);
         const response = await fetch(apiUrl + "/obras", {
             method: "POST",
             headers: {
@@ -98,11 +100,10 @@ function AltaObras() {
                   label="Fecha de Creación"
                   variant="outlined"
                   type="date"
-                  name="fechaCreacion"
+                  name="fecha"
                   fullWidth
-                  InputLabelProps={{ shrink: true }}
                   sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
-                  value={datos.fechaCreacion}
+                  value={datos.fecha}
                   onChange={handleChange}
                 />
               </Grid2>
@@ -123,7 +124,7 @@ function AltaObras() {
 
             {/* Artista y Precio en la misma fila */}
             <Grid2 container spacing={3}>
-              <Grid2 xs={12} sm={8}>
+              {/* <Grid2 xs={12} sm={8}>
                 <TextField
                   label="Artista"
                   variant="outlined"
@@ -133,7 +134,7 @@ function AltaObras() {
                   value={datos.artista}
                   onChange={handleChange}
                 />
-              </Grid2>
+              </Grid2> */}
               <Grid2 xs={12} sm={4}>
                 <TextField
                   label="Precio"
