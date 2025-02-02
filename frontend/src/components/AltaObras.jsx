@@ -1,35 +1,99 @@
 import { Typography, TextField, Stack, Button } from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { apiUrl } from "../pages/config";
+
 
 function AltaObras() {
+  const [datos, setDatos] = useState({
+    nombre: "",
+    fechaCreacion: "",
+    descripcion: "",
+    artista: "",
+    precio: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    // No hacemos submit
+    e.preventDefault();
+
+    // Enviamos los datos mediante fetch
+    try{
+        const response = await fetch(apiUrl + "/obras", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(datos),
+          });
+
+        if (response.ok) {
+            const respuesta = await response.json();
+            alert(respuesta.mensaje);
+            if(respuesta.ok){
+                navigate("/"); // Volver a la página principal
+            }  
+        } 
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Error:", error);
+    }
+  };
+
+  const handleChange = (e) => { 
+    setDatos({
+      ...datos,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+
   return (
     <>
-      <Typography variant="h4" align="center" sx={{ mt: 2, mb: 3, color: "#c98c26", fontWeight: "bold", fontFamily: "'Roboto', sans-serif" }}>
+      <Typography
+        variant="h4"
+        align="center"
+        sx={{
+          mt: 2,
+          mb: 3,
+          color: "#c98c26",
+          fontWeight: "bold",
+          fontFamily: "'Roboto', sans-serif",
+        }}
+      >
         Alta de Obras
       </Typography>
-      <Grid2 container spacing={3} sx={{ mt: 2, justifyContent: "center", alignItems: "center" }}>
-        <Grid2 xs={12} sm={8} md={6}>
-          <Stack component="form" spacing={3} sx={{ mx: 2, padding: 3, borderRadius: 2, boxShadow: 3, backgroundColor: "#f9f9f9" }}>
-            
+
+      <Grid2 container justifyContent="center" sx={{ mt: 2, mb: 4 }} >
+        <Grid2 item xs={12} sm={10} md={8}>
+          <Stack
+            component="form"
+            onSubmit={handleSubmit}
+            spacing={4}
+            sx={{
+              p: 4,
+              borderRadius: 2,
+              boxShadow: 3,
+              backgroundColor: "#f9f9f9",
+            }}
+          >
             {/* Nombre y Fecha de Creación en la misma fila */}
             <Grid2 container spacing={3}>
-              <Grid2 item xs={12} sm={6}>
+              <Grid2 xs={12} sm={6}>
                 <TextField
                   label="Nombre"
                   variant="outlined"
                   name="nombre"
                   fullWidth
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 2,
-                    },
-                    "& .MuiInputLabel-root": {
-                      color: "#888",
-                    },
-                  }}
+                  sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+                  value={datos.nombre}
+                  onChange={handleChange}
                 />
               </Grid2>
-              <Grid2 item xs={12} sm={6}>
+              <Grid2 xs={12} sm={6}>
                 <TextField
                   label="Fecha de Creación"
                   variant="outlined"
@@ -37,73 +101,49 @@ function AltaObras() {
                   name="fechaCreacion"
                   fullWidth
                   InputLabelProps={{ shrink: true }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 2,
-                    },
-                    "& .MuiInputLabel-root": {
-                      color: "#888",
-                    },
-                  }}
+                  sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+                  value={datos.fechaCreacion}
+                  onChange={handleChange}
                 />
               </Grid2>
             </Grid2>
 
-            {/* Descripción debajo de Nombre y Fecha, ocupa hasta donde llega el campo Precio */}
-            <Grid2 container spacing={6}>
-              <Grid2 item xs={12} sm={8}>
-                <TextField
-                  label="Descripción"
-                  variant="outlined"
-                  name="descripcion"
-                  multiline
-                  rows={3}
-                  fullWidth
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 2,
-                    },
-                    "& .MuiInputLabel-root": {
-                      color: "#888",
-                    },
-                  }}
-                />
-              </Grid2>
-            </Grid2>
+            {/* Descripción ocupa todo el ancho */}
+            <TextField
+              label="Descripción"
+              variant="outlined"
+              name="descripcion"
+              multiline
+              rows={3}
+              fullWidth
+              sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+              value={datos.descripcion}
+              onChange={handleChange}
+            />
 
             {/* Artista y Precio en la misma fila */}
             <Grid2 container spacing={3}>
-              <Grid2 item xs={12} sm={8}>
+              <Grid2 xs={12} sm={8}>
                 <TextField
                   label="Artista"
                   variant="outlined"
                   name="artista"
                   fullWidth
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 2,
-                    },
-                    "& .MuiInputLabel-root": {
-                      color: "#888",
-                    },
-                  }}
+                  sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+                  value={datos.artista}
+                  onChange={handleChange}
                 />
               </Grid2>
-              <Grid2 item xs={12} sm={4}>
+              <Grid2 xs={12} sm={4}>
                 <TextField
                   label="Precio"
                   variant="outlined"
                   name="precio"
                   type="number"
                   fullWidth
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 2,
-                    },
-                    "& .MuiInputLabel-root": {
-                      color: "#888",
-                    },
-                  }}
+                  sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+                  value={datos.precio}
+                  onChange={handleChange}
                 />
               </Grid2>
             </Grid2>
