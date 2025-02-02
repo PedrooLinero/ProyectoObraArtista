@@ -15,8 +15,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(200),
       allowNull: false
     },
-    idartista: {
-      type: DataTypes.INTEGER,
+    fecha: {
+      type: DataTypes.DATEONLY,
       allowNull: false
     },
     precio: {

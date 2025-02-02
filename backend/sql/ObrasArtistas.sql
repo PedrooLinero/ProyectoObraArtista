@@ -13,13 +13,13 @@ CREATE TABLE artistas (
 
 -- Crear la tabla Obras
 CREATE TABLE obras (
-    idobra INT AUTO_INCREMENT PRIMARY KEY,      -- idobra autoincrementable
-    nombre VARCHAR(100) NOT NULL,                -- Nombre de la obra
-    descripcion TEXT,                            -- Descripción de la obra
-    fecha DATETIME NOT NULL,                     -- Fecha de creación de la obra
-    precio DECIMAL(10, 2),                       -- Precio de la obra
-    idartista INT                               -- idartista que es la clave foránea
+    idobra INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    fecha DATETIME NOT NULL,
+    precio DECIMAL(10, 2)
 );
+
 
 -- Insertar datos en la tabla Artistas
 INSERT INTO `artistas` (`idartista`, `nombre`, `apellidos`, `fechaCreacion`) VALUES
@@ -35,24 +35,24 @@ INSERT INTO `artistas` (`idartista`, `nombre`, `apellidos`, `fechaCreacion`) VAL
 (10, 'Artista10', 'Apellidos10', '2022-01-01');
 
 -- Insertar datos en la tabla Obras
-INSERT INTO `obras` (`idobra`, `nombre`, `descripcion`, `fecha`, `precio`, `idartista`) VALUES
-(1, 'Cuadro1', 'Cuadro de paisaje', '2022-01-01 00:00:00', '100.00', 1),
-(2, 'Cuadro2', 'Cuadro de paisaje', '2022-01-01 00:00:00', '200.00', 2),
-(3, 'Cuadro3', 'Cuadro de paisaje', '2022-01-01 00:00:00', '300.00', 3),
-(4, 'Cuadro4', 'Cuadro de paisaje', '2022-01-01 00:00:00', '400.00', 4),
-(5, 'Cuadro5', 'Cuadro de paisaje', '2022-01-01 00:00:00', '500.00', 5),
-(6, 'Cuadro6', 'Cuadro de paisaje', '2022-01-01 00:00:00', '600.00', 6),
-(7, 'Cuadro7', 'Cuadro de paisaje', '2022-01-01 00:00:00', '700.00', 7),
-(8, 'Cuadro8', 'Cuadro de paisaje', '2022-01-01 00:00:00', '800.00', 8),
-(9, 'Cuadro9', 'Cuadro de paisaje', '2022-01-01 00:00:00', '900.00', 9),
-(10, 'Cuadro10', 'Cuadro de paisaje', '2022-01-01 00:00:00', '1000.00', 10);
+INSERT INTO `obras` (`idobra`, `nombre`, `descripcion`, `fecha`, `precio`) VALUES
+(1, 'Obra1', 'Descripción1', '2022-01-01 00:00:00', '100.00'),
+(2, 'Obra2', 'Descripción2', '2022-01-01 00:00:00', '200.00'),
+(3, 'Obra3', 'Descripción3', '2022-01-01 00:00:00', '300.00'),
+(4, 'Obra4', 'Descripción4', '2022-01-01 00:00:00', '400.00'),
+(5, 'Obra5', 'Descripción5', '2022-01-01 00:00:00', '500.00'),
+(6, 'Obra6', 'Descripción6', '2022-01-01 00:00:00', '600.00'),
+(7, 'Obra7', 'Descripción7', '2022-01-01 00:00:00', '700.00'),
+(8, 'Obra8', 'Descripción8', '2022-01-01 00:00:00', '800.00'),
+(9, 'Obra9', 'Descripción9', '2022-01-01 00:00:00', '900.00'),
+(10, 'Obra10', 'Descripción10', '2022-01-01 00:00:00', '1000.00');
 
 -- Establecer las claves foráneas después de insertar los datos
-ALTER TABLE `obras`
-    ADD CONSTRAINT `obras_ibfk_1` FOREIGN KEY (`idartista`) REFERENCES `artistas` (`idartista`);
+-- ALTER TABLE `obras`
+--     ADD CONSTRAINT `obras_ibfk_1` FOREIGN KEY (`idartista`) REFERENCES `artistas` (`idartista`);
 
-ALTER TABLE `artistas`
-    ADD CONSTRAINT `artistas_ibfk_1` FOREIGN KEY (`idartista`) REFERENCES `obras` (`idobra`);
+-- ALTER TABLE `artistas`
+--     ADD CONSTRAINT `artistas_ibfk_1` FOREIGN KEY (`idartista`) REFERENCES `obras` (`idobra`);
 
 -- Crear índices en las columnas más usadas para búsquedas rápidas
 CREATE INDEX idx_artista_nombre ON artistas (nombre);

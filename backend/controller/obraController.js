@@ -28,112 +28,112 @@ class ObraController {
     }
   }
 
-  async getAllObra(req, res) {
-    try {
-      const data = await Obra.findAll(); // Recuperar todos los obras
-      res.json(Respuesta.exito(data, "Datos de obras recuperadas"));
-    } catch (err) {
-      // Handle errors during the model call
-      res
-        .status(500)
-        .json(
-          Respuesta.error(
-            null,
-            `Error al recuperar los datos de las obras: ${req.originalUrl}`
-          )
-        );
-    }
-  }
+  // async getAllObra(req, res) {
+  //   try {
+  //     const data = await Obra.findAll(); // Recuperar todos los obras
+  //     res.json(Respuesta.exito(data, "Datos de obras recuperadas"));
+  //   } catch (err) {
+  //     // Handle errors during the model call
+  //     res
+  //       .status(500)
+  //       .json(
+  //         Respuesta.error(
+  //           null,
+  //           `Error al recuperar los datos de las obras: ${req.originalUrl}`
+  //         )
+  //       );
+  //   }
+  // }
 
-  async deleteObra(req, res) {
-    const idobra = req.params.idobra;
-    try {
-      const numFilas = await Obra.destroy({
-        where: {
-            idobra: idobra,
-        },
-      });
-      if (numFilas == 0) {
-        // No se ha encontrado lo que se quería borrar
-        res
-          .status(404)
-          .json(Respuesta.error(null, "No encontrado: " + idobra));
-      } else {
-        res.status(204).send();
-      }
-    } catch (err) {
-      logMensaje("Error :" + err);
-      res
-        .status(500)
-        .json(
-          Respuesta.error(
-            null,
-            `Error al eliminar los datos: ${req.originalUrl}`
-          )
-        );
-    }
-  }
+  // async deleteObra(req, res) {
+  //   const idobra = req.params.idobra;
+  //   try {
+  //     const numFilas = await Obra.destroy({
+  //       where: {
+  //           idobra: idobra,
+  //       },
+  //     });
+  //     if (numFilas == 0) {
+  //       // No se ha encontrado lo que se quería borrar
+  //       res
+  //         .status(404)
+  //         .json(Respuesta.error(null, "No encontrado: " + idobra));
+  //     } else {
+  //       res.status(204).send();
+  //     }
+  //   } catch (err) {
+  //     logMensaje("Error :" + err);
+  //     res
+  //       .status(500)
+  //       .json(
+  //         Respuesta.error(
+  //           null,
+  //           `Error al eliminar los datos: ${req.originalUrl}`
+  //         )
+  //       );
+  //   }
+  // }
 
-  async getObraById(req, res) {
-    // El id plato viene en la ruta /api/platos/:idobra
-    const idobra = req.params.idobra;
-    try {
-      const fila = await Obra.findByPk(idobra);
-      if (fila) {
-        // Si se ha recuprado un plato
-        res.json(Respuesta.exito(fila, "Obra recuperada"));
-      } else {
-        res.status(404).json(Respuesta.error(null, "Obra no encontrada"));
-      }
-    } catch (err) {
-      logMensaje("Error :" + err);
-      res
-        .status(500)
-        .json(
-          Respuesta.error(
-            null,
-            `Error al recuperar los datos: ${req.originalUrl}`
-          )
-        );
-    }
-  }
+  // async getObraById(req, res) {
+  //   // El id plato viene en la ruta /api/platos/:idobra
+  //   const idobra = req.params.idobra;
+  //   try {
+  //     const fila = await Obra.findByPk(idobra);
+  //     if (fila) {
+  //       // Si se ha recuprado un plato
+  //       res.json(Respuesta.exito(fila, "Obra recuperada"));
+  //     } else {
+  //       res.status(404).json(Respuesta.error(null, "Obra no encontrada"));
+  //     }
+  //   } catch (err) {
+  //     logMensaje("Error :" + err);
+  //     res
+  //       .status(500)
+  //       .json(
+  //         Respuesta.error(
+  //           null,
+  //           `Error al recuperar los datos: ${req.originalUrl}`
+  //         )
+  //       );
+  //   }
+  // }
 
-  async updateObra(req, res) {
-    const obra = req.body; // Recuperamos datos para actualizar
-    const idobra = req.params.idobra; // dato de la ruta
+  // async updateObra(req, res) {
+  //   const obra = req.body; // Recuperamos datos para actualizar
+  //   const idobra = req.params.idobra; // dato de la ruta
 
-    // Petición errónea, no coincide el id del plato de la ruta con el del objeto a actualizar
-    if (idobra != obra.idobra) {
-      return res
-        .status(400)
-        .json(Respuesta.error(null, "El id de la obra no coincide"));
-    }
+  //   // Petición errónea, no coincide el id del plato de la ruta con el del objeto a actualizar
+  //   if (idobra != obra.idobra) {
+  //     return res
+  //       .status(400)
+  //       .json(Respuesta.error(null, "El id de la obra no coincide"));
+  //   }
 
-    try {
-      const numFilas = await Obra.update({ ...obra }, { where: { idobra } });
+  //   try {
+  //     const numFilas = await Obra.update({ ...obra }, { where: { idobra } });
 
-      if (numFilas == 0) {
-        // No se ha encontrado lo que se quería actualizar o no hay nada que cambiar
-        res
-          .status(404)
-          .json(Respuesta.error(null, "No encontrado o no modificado: " + idobra));
-      } else {
-        // Al dar status 204 no se devuelva nada
-        // res.status(204).json(Respuesta.exito(null, "Plato actualizado"));
-        res.status(204).send();
-      }
-    } catch (err) {
-      logMensaje("Error :" + err);
-      res
-        .status(500)
-        .json(
-          Respuesta.error(
-            null,
-            `Error al actualizar los datos: ${req.originalUrl}`
-          )
-        );
-    }
-  }
+  //     if (numFilas == 0) {
+  //       // No se ha encontrado lo que se quería actualizar o no hay nada que cambiar
+  //       res
+  //         .status(404)
+  //         .json(Respuesta.error(null, "No encontrado o no modificado: " + idobra));
+  //     } else {
+  //       // Al dar status 204 no se devuelva nada
+  //       // res.status(204).json(Respuesta.exito(null, "Plato actualizado"));
+  //       res.status(204).send();
+  //     }
+  //   } catch (err) {
+  //     logMensaje("Error :" + err);
+  //     res
+  //       .status(500)
+  //       .json(
+  //         Respuesta.error(
+  //           null,
+  //           `Error al actualizar los datos: ${req.originalUrl}`
+  //         )
+  //       );
+  //   }
+  // }
 }
 
 module.exports = new ObraController();
