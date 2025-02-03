@@ -28,22 +28,25 @@ class ObraController {
     }
   }
 
-  // async getAllObra(req, res) {
-  //   try {
-  //     const data = await Obra.findAll(); // Recuperar todos los obras
-  //     res.json(Respuesta.exito(data, "Datos de obras recuperadas"));
-  //   } catch (err) {
-  //     // Handle errors during the model call
-  //     res
-  //       .status(500)
-  //       .json(
-  //         Respuesta.error(
-  //           null,
-  //           `Error al recuperar los datos de las obras: ${req.originalUrl}`
-  //         )
-  //       );
-  //   }
-  // }
+  async getAllObra(req, res) {
+    try {
+      console.log("Entrando en getAllObra");  // 👈 Agregar esto
+      const data = await Obra.findAll(); // Recuperar todos los obras
+      res.json(Respuesta.exito(data, "Datos de obras recuperadas"));
+    } catch (err) {
+      // Handle errors during the model call
+      console.error("Error en getAllObra:", err);  // 👈 Agregar esto
+
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al recuperar los datos de las obras: ${req.originalUrl}`
+          )
+        );
+    }
+  }
 
   // async deleteObra(req, res) {
   //   const idobra = req.params.idobra;

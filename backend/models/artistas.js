@@ -1,29 +1,32 @@
-// models/artistas.js
-module.exports = function(sequelize, DataTypes) {
-    const Artistas = sequelize.define('Artistas', {
+const Sequelize = require("sequelize");
+
+module.exports = function (sequelize, DataTypes) {
+  return sequelize.define(
+    "artistas",
+    {
       idartista: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
+        allowNull: false,
         primaryKey: true,
-        autoIncrement: true
       },
       nombre: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING(100),
+        allowNull: false,
       },
       apellidos: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING(100),
+        allowNull: true,
       },
       fechaCreacion: {
-        type: DataTypes.DATE,
-        allowNull: false
-      }
-    });
-  
-    // Relación inversa (Un artista tiene muchas obras)
-    Artistas.associate = function(models) {
-      Artistas.hasMany(models.Obras, { foreignKey: 'idartista' });
-    };
-  
-    return Artistas;
-  };
-  
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize,
+      tableName: "artistas",
+      timestamps: false, // Evita problemas con createdAt y updatedAt
+    }
+  );
+};

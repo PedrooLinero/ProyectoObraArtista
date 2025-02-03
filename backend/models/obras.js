@@ -23,13 +23,9 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DECIMAL(8,2),
       allowNull: false
     },
-    artista: {
+    idartista: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: 'artistas',
-        key: 'idartista'
-      }
     }
   }, {
     sequelize,

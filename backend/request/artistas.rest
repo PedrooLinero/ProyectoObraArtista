@@ -1,4 +1,4 @@
-
+###
 POST http://localhost:3000/api/artistas
 Content-Type: application/json
 
@@ -7,3 +7,6 @@ Content-Type: application/json
     "apellidos": "Pintor",
     "fechaCreacion": "2022-01-01T00:00:00.000Z"
 }
+
+###
+GET http://localhost:3000/api/artistas
