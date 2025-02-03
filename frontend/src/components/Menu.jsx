@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   AppBar,
   Toolbar,
-  Typography,
   IconButton,
   Box,
   Drawer,
@@ -11,23 +10,14 @@ import {
   ListItemText,
   Collapse,
 } from "@mui/material";
-import {
-  MDBCarousel,
-  MDBCarouselItem,
-  MDBCarouselCaption,
-} from "mdb-react-ui-kit";
 import MenuIcon from "@mui/icons-material/Menu";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
 import ArtTrackIcon from "@mui/icons-material/ArtTrack"; // Icono para Obras
 import BrushIcon from "@mui/icons-material/Brush"; // Icono para Artistas
 import LOGO_MUSEO_ARTE from "../assets/LOGO_MUSEO_ARTE.png";
-import FONDO_2 from "../assets/FONDO_2.jpg";
-import OBRA_CARD from "../assets/OBRA_CARD.jpg";
-import ARTISTA_CARD from "../assets/ARTISTA_CARD.png";
+
+import { Link } from "react-router-dom";
 
 function Menu() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -86,17 +76,13 @@ function Menu() {
             </ListItem>
             <Collapse in={obrasOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemText
-                    primary="Alta de Obras"
-                    sx={{ color: "#d9a95b" }}
-                  />
+                <ListItem sx={{ pl: 4 }}>
+                  <Link to="/altaobras" style={{ textDecoration: "none" }}>
+                    <ListItemText primary="Alta de Obras" sx={{ color: "#d9a95b" }} />
+                  </Link>
                 </ListItem>
                 <ListItem button sx={{ pl: 4 }}>
-                  <ListItemText
-                    primary="Lista de Obras"
-                    sx={{ color: "#d9a95b" }}
-                  />
+                  <ListItemText primary="Lista de Obras" sx={{ color: "#d9a95b" }} />
                 </ListItem>
               </List>
             </Collapse>
@@ -114,136 +100,19 @@ function Menu() {
             </ListItem>
             <Collapse in={artistasOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemText
-                    primary="Alta de Artistas"
-                    sx={{ color: "#d9a95b" }}
-                  />
+                <ListItem sx={{ pl: 4 }}>
+                  <Link to="/altaartistas" style={{ textDecoration: "none" }}>
+                    <ListItemText primary="Alta de Artistas" sx={{ color: "#d9a95b" }} />
+                  </Link>
                 </ListItem>
                 <ListItem button sx={{ pl: 4 }}>
-                  <ListItemText
-                    primary="Lista de Artistas"
-                    sx={{ color: "#d9a95b" }}
-                  />
+                  <ListItemText primary="Lista de Artistas" sx={{ color: "#d9a95b" }} />
                 </ListItem>
               </List>
             </Collapse>
           </List>
         </Box>
       </Drawer>
-
-      <Box sx={{ mt: 1, mb: 1 }}>
-        <MDBCarousel showControls showIndicators className="mb-0">
-          <MDBCarouselItem itemId={1}>
-            <img
-              src={FONDO_2}
-              className="d-block w-100"
-              alt="..."
-              style={{
-                maxHeight: "600px",
-                objectFit: "cover",
-                maxWidth: "100%",
-                height: "100vh",
-              }}
-            />
-            <MDBCarouselCaption className="bg-black bg-opacity-50 w-25 mx-auto">
-              <h5>ATHENEA MUSEUM</h5>
-              <p>
-                Un espacio donde el arte cobra vida, conectando el pasado y el
-                presente a través de sus obras.
-              </p>
-            </MDBCarouselCaption>
-          </MDBCarouselItem>
-          <MDBCarouselItem itemId={2}>
-            <img
-              src={OBRA_CARD}
-              className="d-block w-100"
-              alt="..."
-              style={{
-                maxHeight: "600px",
-                objectFit: "cover",
-                maxWidth: "100%",
-                height: "100vh",
-              }}
-            />
-            <MDBCarouselCaption className="bg-black bg-opacity-50 w-25 mx-auto">
-              <h5>Trazos de la Historia</h5>
-              <p>
-                Cada obra es una historia única, un reflejo del talento y la
-                creatividad que la inspiró.
-              </p>
-            </MDBCarouselCaption>
-          </MDBCarouselItem>
-          <MDBCarouselItem itemId={3}>
-            <img
-              src={ARTISTA_CARD}
-              className="d-block w-100"
-              alt="..."
-              style={{
-                maxHeight: "600px",
-                objectFit: "cover",
-                maxWidth: "100%",
-                height: "100vh",
-              }}
-            />
-            <MDBCarouselCaption className="bg-black bg-opacity-50 w-25 mx-auto">
-              <h5>Maestros del Arte</h5>
-              <p>
-                Los artistas dan forma a nuestras emociones y nos enseñan a ver
-                el mundo de manera diferente.
-              </p>
-            </MDBCarouselCaption>
-          </MDBCarouselItem>
-        </MDBCarousel>
-      </Box>
-
-      {/* Footer */}
-      <AppBar
-        position="static"
-        sx={{ top: "auto", bottom: 0, backgroundColor: "#24221e", padding: 1 }}
-      >
-        <Toolbar>
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Typography
-              variant="body1"
-              color="inherit"
-              sx={{ textAlign: "center", marginTop: 1 }}
-            >
-              © 2025 ATHENEA - Museo de Arte
-            </Typography>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <IconButton
-                color="inherit"
-                href="https://www.facebook.com"
-                target="_blank"
-              >
-                <FacebookIcon />
-              </IconButton>
-              <IconButton
-                color="inherit"
-                href="https://www.twitter.com"
-                target="_blank"
-              >
-                <TwitterIcon />
-              </IconButton>
-              <IconButton
-                color="inherit"
-                href="https://www.instagram.com"
-                target="_blank"
-              >
-                <InstagramIcon />
-              </IconButton>
-            </Box>
-          </Box>
-        </Toolbar>
-      </AppBar>
     </>
   );
 }
