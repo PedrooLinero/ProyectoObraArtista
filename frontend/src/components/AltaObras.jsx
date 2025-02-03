@@ -13,28 +13,32 @@ function AltaObras() {
     idartista: "", // Agregar el campo idartista
   });
 
-  const [artistas, setArtistas] = useState([]);
+  const [obras, setObras] = useState([]);
+  const [artistasSel, setArtistasSel] = useState([]);
   const navigate = useNavigate();
 
-  // Obtener los artistas desde la base de datos
+  const handleChangeSel = (event) => {
+    setArtistasSel(event.target.value);
+  };
+
   useEffect(() => {
-    const fetchArtistas = async () => {
-      try {
-        const response = await fetch(apiUrl + "/artistas");
-        if (response.ok) {
-          const data = await response.json();
-          setArtistas(data); // Suponiendo que la respuesta sea un array de artistas
-        }
-      } catch (error) {
-        console.error("Error al obtener artistas:", error);
+    async function getArtistas() {
+      let response = await fetch(apiUrl + "/artistas");
+
+      if (response.ok) {
+        let data = await response.json();
+        setObras(data.datos);
       }
-    };
-    fetchArtistas();
+    }
+
+    getArtistas();
   }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log(datos);
     try {
       const response = await fetch(apiUrl + "/obras", {
         method: "POST",
@@ -135,17 +139,17 @@ function AltaObras() {
 
             {/* Select para Artista */}
             <FormControl fullWidth sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}>
-              <InputLabel>Artista</InputLabel>
+              <InputLabel id="idartista">Artista</InputLabel>
               <Select
-                label="Artista"
-                name="idartista"
-                value={datos.idartista}
-                onChange={handleChange}
-                required
+                labelId="idartista"
+                id="idartista"
+                value={artistasSel}
+                label="Artista a seleccionar"
+                onChange={handleChangeSel}
               >
-                {artistas.map((artista) => (
-                  <MenuItem key={artista.idartista} value={artista.idartista}>
-                    {artista.nombre}
+                {obras.map((datos) => (
+                  <MenuItem key={datos.idartista} value={datos.idartista}>
+                    {datos.nombre}
                   </MenuItem>
                 ))}
               </Select>
