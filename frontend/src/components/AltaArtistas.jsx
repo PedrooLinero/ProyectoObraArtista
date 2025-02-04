@@ -1,15 +1,16 @@
-import { Typography, TextField, Stack, Button } from "@mui/material";
+import { Typography, TextField, Stack, Button, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiUrl } from "../pages/config";
 
-
 function AltaArtistas() {
   const [datos, setDatos] = useState({
     nombre: "",
     apellidos: "",
-    fechaCreacion: "",
+    fechaNacimiento: "",
+    tipoArte: "",
+    paisDeNacimiento: "", // Añadido para capturar el país de nacimiento
   });
 
   const navigate = useNavigate();
@@ -101,15 +102,44 @@ function AltaArtistas() {
               </Grid2>
             </Grid2>
 
-            {/* Fecha de Creación */}
+            {/* Fecha de Nacimiento */}
             <TextField
-              label="Fecha de Creación"
+              label="Fecha de Nacimiento"
               variant="outlined"
               type="date"
-              name="fechaCreacion"
+              name="fechaNacimiento"
               fullWidth
               sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
-              value={datos.fechaCreacion}
+              value={datos.fechaNacimiento}
+              onChange={handleChange}
+            />
+
+            {/* Tipo de Arte */}
+            <FormControl fullWidth>
+              <InputLabel>Tipo de Arte</InputLabel>
+              <Select
+                label="Tipo de Arte"
+                name="tipoArte"
+                value={datos.tipoArte}
+                onChange={handleChange}
+                sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+              >
+                <MenuItem value="abstracto">Abstracto</MenuItem>
+                <MenuItem value="creativo">Creativo</MenuItem>
+                <MenuItem value="realista">Realista</MenuItem>
+                <MenuItem value="surrealista">Surrealista</MenuItem>
+                <MenuItem value="contemporaneo">Contemporáneo</MenuItem>
+              </Select>
+            </FormControl>
+
+            {/* País de Nacimiento */}
+            <TextField
+              label="País de Nacimiento"
+              variant="outlined"
+              name="paisDeNacimiento"
+              fullWidth
+              sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+              value={datos.paisDeNacimiento}
               onChange={handleChange}
             />
 

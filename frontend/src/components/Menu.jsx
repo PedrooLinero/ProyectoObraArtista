@@ -78,11 +78,19 @@ function Menu() {
               <List component="div" disablePadding>
                 <ListItem sx={{ pl: 4 }}>
                   <Link to="/altaobras" style={{ textDecoration: "none" }}>
-                    <ListItemText primary="Alta de Obras" sx={{ color: "#d9a95b" }} />
+                    <ListItemText
+                      primary="Alta de Obras"
+                      sx={{ color: "#d9a95b" }}
+                    />
                   </Link>
                 </ListItem>
                 <ListItem button sx={{ pl: 4 }}>
-                  <ListItemText primary="Lista de Obras" sx={{ color: "#d9a95b" }} />
+                  <Link to="/listaobras" style={{ textDecoration: "none" }}>
+                    <ListItemText
+                      primary="Lista de Obras"
+                      sx={{ color: "#d9a95b" }}
+                    />
+                  </Link>
                 </ListItem>
               </List>
             </Collapse>
@@ -102,11 +110,19 @@ function Menu() {
               <List component="div" disablePadding>
                 <ListItem sx={{ pl: 4 }}>
                   <Link to="/altaartistas" style={{ textDecoration: "none" }}>
-                    <ListItemText primary="Alta de Artistas" sx={{ color: "#d9a95b" }} />
+                    <ListItemText
+                      primary="Alta de Artistas"
+                      sx={{ color: "#d9a95b" }}
+                    />
                   </Link>
                 </ListItem>
                 <ListItem button sx={{ pl: 4 }}>
-                  <ListItemText primary="Lista de Artistas" sx={{ color: "#d9a95b" }} />
+                  <Link to="/listaartistas" style={{ textDecoration: "none" }}>
+                    <ListItemText
+                      primary="Lista de Artistas"
+                      sx={{ color: "#d9a95b" }}
+                    />
+                  </Link>
                 </ListItem>
               </List>
             </Collapse>

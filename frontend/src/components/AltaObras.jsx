@@ -1,4 +1,13 @@
-import { Typography, TextField, Stack, Button, MenuItem, Select, InputLabel, FormControl } from "@mui/material";
+import {
+  Typography,
+  TextField,
+  Stack,
+  Button,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,35 +19,48 @@ function AltaObras() {
     descripcion: "",
     fecha: "",
     precio: "",
-    idartista: "", // Agregar el campo idartista
+    idartista: "",
   });
 
-  const [obras, setObras] = useState([]);
-  const [artistasSel, setArtistasSel] = useState([]);
+  const [artistas, setArtistas] = useState([]);
   const navigate = useNavigate();
-
-  const handleChangeSel = (event) => {
-    setArtistasSel(event.target.value);
-  };
 
   useEffect(() => {
     async function getArtistas() {
-      let response = await fetch(apiUrl + "/artistas");
+      try {
+        const response = await fetch(apiUrl + "/artistas");
 
-      if (response.ok) {
-        let data = await response.json();
-        setObras(data.datos);
+        if (response.ok) {
+          const data = await response.json();
+          setArtistas(data.datos);  // Se asegura de que los datos del artista se reciban correctamente
+        } else {
+          console.error("Error al obtener los artistas.");
+        }
+      } catch (error) {
+        console.error("Error en la solicitud:", error);
       }
     }
 
     getArtistas();
   }, []);
 
+  const handleChange = (e) => {
+    setDatos({
+      ...datos,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleChangeSel = (event) => {
+    setDatos({
+      ...datos,
+      idartista: event.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(datos);
     try {
       const response = await fetch(apiUrl + "/obras", {
         method: "POST",
@@ -48,24 +70,18 @@ function AltaObras() {
         body: JSON.stringify(datos),
       });
 
+      const respuesta = await response.json();
+
       if (response.ok) {
-        const respuesta = await response.json();
         alert(respuesta.mensaje);
-        if (respuesta.ok) {
-          navigate("/"); // Volver a la página principal
-        }
+        navigate("/");
+      } else {
+        alert("Error: " + respuesta.mensaje);
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Error:", error);
+      alert("Ocurrió un error. Inténtalo de nuevo.");
     }
-  };
-
-  const handleChange = (e) => {
-    setDatos({
-      ...datos,
-      [e.target.name]: e.target.value,
-    });
   };
 
   return (
@@ -84,7 +100,7 @@ function AltaObras() {
         Alta de Obras
       </Typography>
 
-      <Grid2 container justifyContent="center" sx={{ mt: 2, mb: 4 }} >
+      <Grid2 container justifyContent="center" sx={{ mt: 2, mb: 4 }}>
         <Grid2 item xs={12} sm={10} md={8}>
           <Stack
             component="form"
@@ -97,7 +113,6 @@ function AltaObras() {
               backgroundColor: "#f9f9f9",
             }}
           >
-            {/* Nombre y Fecha de Creación en la misma fila */}
             <Grid2 container spacing={3}>
               <Grid2 xs={12} sm={6}>
                 <TextField
@@ -124,7 +139,6 @@ function AltaObras() {
               </Grid2>
             </Grid2>
 
-            {/* Descripción ocupa todo el ancho */}
             <TextField
               label="Descripción"
               variant="outlined"
@@ -137,26 +151,31 @@ function AltaObras() {
               onChange={handleChange}
             />
 
-            {/* Select para Artista */}
-            <FormControl fullWidth sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}>
-              <InputLabel id="idartista">Artista</InputLabel>
-              <Select
-                labelId="idartista"
-                id="idartista"
-                value={artistasSel}
-                label="Artista a seleccionar"
-                onChange={handleChangeSel}
-              >
-                {obras.map((datos) => (
-                  <MenuItem key={datos.idartista} value={datos.idartista}>
-                    {datos.nombre}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            {/* Precio en la misma fila */}
             <Grid2 container spacing={3}>
+              <Grid2 xs={12} sm={4}>
+                <FormControl
+                  fullWidth
+                  sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+                >
+                  <InputLabel id="idartista-label">Artista</InputLabel>
+                  <Select
+                    labelId="idartista-label"
+                    id="idartista"
+                    value={datos.idartista}
+                    onChange={handleChangeSel}
+                  >
+                    {artistas.map((artista) => (
+                      <MenuItem
+                        key={artista.idartista}
+                        value={artista.idartista}
+                      >
+                        {artista.nombre} ({artista.paisDeNacimiento}) {/* Aquí mostramos el país de nacimiento */}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid2>
+
               <Grid2 xs={12} sm={4}>
                 <TextField
                   label="Precio"
@@ -171,7 +190,6 @@ function AltaObras() {
               </Grid2>
             </Grid2>
 
-            {/* Botón centrado */}
             <Button
               variant="contained"
               type="submit"
