@@ -5,8 +5,23 @@ Content-Type: application/json
 {
     "nombre": "Leonardo Da Vinci",
     "apellidos": "Pintor",
-    "fechaCreacion": "2022-01-01T00:00:00.000Z"
+    "fechaNacimiento": "2022-01-01",
+    "tipoArte": "creativo",
+    "paisDeNacimiento": "Italia"
 }
 
 ###
 GET http://localhost:3000/api/artistas
+
+###
+PUT http://localhost:3000/api/artistas/1
+Content-Type: application/json
+
+{
+    "idartista": 1,
+    "nombre": "Perito",
+    "apellidos": "Pintor",
+    "fechaNacimiento": "2022-01-01",
+    "tipoArte": "creativo",
+    "paisDeNacimiento": "España"
+}

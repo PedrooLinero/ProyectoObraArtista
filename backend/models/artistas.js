@@ -18,10 +18,18 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(100),
         allowNull: true,
       },
-      fechaCreacion: {
+      fechaNacimiento: {
         type: DataTypes.DATEONLY,
         allowNull: false,
       },
+      tipoArte: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+      },
+      paisDeNacimiento:{
+        type: DataTypes.STRING(50),
+        allowNull: false,
+      }
     },
     {
       sequelize,

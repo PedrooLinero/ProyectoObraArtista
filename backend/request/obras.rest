@@ -4,9 +4,9 @@ POST  http://localhost:3000/api/obras
 Content-Type: application/json
 
 {
-    "nombre": "La Mona Lisa",
+    "nombre": "El grito",
     "descripcion": "Pintura",
-    "fecha": "2022-01-01T00:00:00.000Z",
+    "fecha": "2022-01-01",
     "precio": "123456",
     "idartista": "1"
 }

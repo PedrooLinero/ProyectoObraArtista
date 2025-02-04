@@ -50,32 +50,97 @@ class ArtistaController {
       );
     }
   }
+
+  async updateArtista(req, res) {
+      const artista = req.body; // Recuperamos datos para actualizar
+      const idartista = req.params.idartista; // dato de la ruta
   
+      // Petición errónea, no coincide el id del plato de la ruta con el del objeto a actualizar
+      if (idartista != artista.idartista) {
+        return res
+          .status(400)
+          .json(Respuesta.error(null, "El id del artista no coincide"));
+      }
+  
+      try {
+        const numFilas = await Artista.update({ ...artista }, { where: { idartista } });
+  
+        if (numFilas == 0) {
+          // No se ha encontrado lo que se quería actualizar o no hay nada que cambiar
+          res
+            .status(404)
+            .json(Respuesta.error(null, "No encontrado o no modificado: " + idartista));
+        } else {
+          // Al dar status 204 no se devuelva nada
+          // res.status(204).json(Respuesta.exito(null, "Plato actualizado"));
+          res.status(204).send();
+        }
+      } catch (err) {
+        logMensaje("Error :" + err);
+        res
+          .status(500)
+          .json(
+            Respuesta.error(
+              null,
+              `Error al actualizar los datos: ${req.originalUrl}`
+            )
+          );
+      }
+    }
 
-//   async getArtistaById(req, res) {
-//     // Implementa la lógica para recuperar una obra por su id
-//     const idartista = req.params.idartista;
+  async getArtistaById(req, res) {
+    // Implementa la lógica para recuperar una obra por su id
+    const idartista = req.params.idartista;
 
-//     try {
-//       const artista = await Artista.findByPk(idartista);
-//       if (artista) {
-//         res.json(Respuesta.exito(artista, "Artista recuperado"));
-//       } else {
-//         res
-//           .status(404)
-//           .json(Respuesta.error(null, `Artista con id ${idartista} no encontrado`));
-//       }
-//     } catch (err) {
-//       res
-//         .status(500)
-//         .json(
-//           Respuesta.error(
-//             null,
-//             `Error al recuperar el artista con id ${idartista}: ${err}`
-//           )
-//         );
-//     }
-//   }
- }
+    try {
+      const fila = await Artista.findByPk(idartista);
+      if (fila) {
+        res.json(Respuesta.exito(fila, "Artista recuperado"));
+      } else {
+        res
+          .status(404)
+          .json(Respuesta.error(null, "Artista no encontrado"));
+      }
+    } catch (err) {
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al recuperar el artista: ${req.originalUrl}`
+          )
+        );
+    }
+  }
+ 
+ async deleteArtista(req, res) {
+    const idartista = req.params.idartista;
+    try {
+      const numFilas = await Obra.destroy({
+        where: {
+            idartista: idartista,
+        },
+      });
+      if (numFilas == 0) {
+        // No se ha encontrado lo que se quería borrar
+        res
+          .status(404)
+          .json(Respuesta.error(null, "No encontrado: " + idartista));
+      } else {
+        res.status(204).send();
+      }
+    } catch (err) {
+      logMensaje("Error :" + err);
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al eliminar los datos: ${req.originalUrl}`
+          )
+        );
+    }
+  }
+}
 
 module.exports = new ArtistaController();

@@ -16,6 +16,7 @@ class ObraController {
     // Implementa la lógica para crear una nueva obra
     const obra = req.body;
 
+    console.log("Obra recibida: ", obra);  // 👈 Agregar esto
     try {
       const obraNueva = await Obra.create(obra);
 
@@ -43,6 +44,43 @@ class ObraController {
           Respuesta.error(
             null,
             `Error al recuperar los datos de las obras: ${req.originalUrl}`
+          )
+        );
+    }
+  }
+
+  async updateObra(req, res) {
+    const obra = req.body; // Recuperamos datos para actualizar
+    const idobra = req.params.idobra; // dato de la ruta
+
+    // Petición errónea, no coincide el id del plato de la ruta con el del objeto a actualizar
+    if (idobra != obra.idobra) {
+      return res
+        .status(400)
+        .json(Respuesta.error(null, "El id de la obra no coincide"));
+    }
+
+    try {
+      const numFilas = await Obra.update({ ...obra }, { where: { idobra } });
+
+      if (numFilas == 0) {
+        // No se ha encontrado lo que se quería actualizar o no hay nada que cambiar
+        res
+          .status(404)
+          .json(Respuesta.error(null, "No encontrado o no modificado: " + idobra));
+      } else {
+        // Al dar status 204 no se devuelva nada
+        // res.status(204).json(Respuesta.exito(null, "Plato actualizado"));
+        res.status(204).send();
+      }
+    } catch (err) {
+      logMensaje("Error :" + err);
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al actualizar los datos: ${req.originalUrl}`
           )
         );
     }
@@ -101,42 +139,7 @@ class ObraController {
   //   }
   // }
 
-  // async updateObra(req, res) {
-  //   const obra = req.body; // Recuperamos datos para actualizar
-  //   const idobra = req.params.idobra; // dato de la ruta
-
-  //   // Petición errónea, no coincide el id del plato de la ruta con el del objeto a actualizar
-  //   if (idobra != obra.idobra) {
-  //     return res
-  //       .status(400)
-  //       .json(Respuesta.error(null, "El id de la obra no coincide"));
-  //   }
-
-  //   try {
-  //     const numFilas = await Obra.update({ ...obra }, { where: { idobra } });
-
-  //     if (numFilas == 0) {
-  //       // No se ha encontrado lo que se quería actualizar o no hay nada que cambiar
-  //       res
-  //         .status(404)
-  //         .json(Respuesta.error(null, "No encontrado o no modificado: " + idobra));
-  //     } else {
-  //       // Al dar status 204 no se devuelva nada
-  //       // res.status(204).json(Respuesta.exito(null, "Plato actualizado"));
-  //       res.status(204).send();
-  //     }
-  //   } catch (err) {
-  //     logMensaje("Error :" + err);
-  //     res
-  //       .status(500)
-  //       .json(
-  //         Respuesta.error(
-  //           null,
-  //           `Error al actualizar los datos: ${req.originalUrl}`
-  //         )
-  //       );
-  //   }
-  // }
+  
 }
 
 module.exports = new ObraController();
