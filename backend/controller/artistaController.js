@@ -5,6 +5,7 @@ const { logMensaje } = require("../utils/logger.js");
 const initModels = require("../models/init-models.js").initModels;
 // Crear la instancia de sequelize con la conexión a la base de datos
 const sequelize = require("../config/sequelize.js");
+const obras = require("../models/obras.js");
 
 // Cargar las definiciones del modelo en sequelize
 const models = initModels(sequelize);
@@ -24,69 +25,77 @@ class ArtistaController {
       logMensaje("Error :" + err);
       res
         .status(500)
-        .json(Respuesta.error(null, `Error al crear un artista nuevo: ${artista}`));
+        .json(
+          Respuesta.error(null, `Error al crear un artista nuevo: ${artista}`)
+        );
     }
   }
-
 
   async getAllArtista(req, res) {
     try {
       console.log("Entrando en getAllArtista");
-      
+
       // 🔴 Registra la consulta que Sequelize genera
       const data = await Artista.findAll({
         logging: console.log, // Muestra la consulta en consola
       });
-  
+
       res.json(Respuesta.exito(data, "Datos de artistas recuperados"));
     } catch (err) {
       console.error("Error en getAllArtista:", err);
-  
-      res.status(500).json(
-        Respuesta.error(
-          null,
-          `Error al recuperar los datos de los artistas: ${req.originalUrl}`
-        )
-      );
+
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al recuperar los datos de los artistas: ${req.originalUrl}`
+          )
+        );
     }
   }
 
   async updateArtista(req, res) {
-      const artista = req.body; // Recuperamos datos para actualizar
-      const idartista = req.params.idartista; // dato de la ruta
-  
-      // Petición errónea, no coincide el id del plato de la ruta con el del objeto a actualizar
-      if (idartista != artista.idartista) {
-        return res
-          .status(400)
-          .json(Respuesta.error(null, "El id del artista no coincide"));
-      }
-  
-      try {
-        const numFilas = await Artista.update({ ...artista }, { where: { idartista } });
-  
-        if (numFilas == 0) {
-          // No se ha encontrado lo que se quería actualizar o no hay nada que cambiar
-          res
-            .status(404)
-            .json(Respuesta.error(null, "No encontrado o no modificado: " + idartista));
-        } else {
-          // Al dar status 204 no se devuelva nada
-          // res.status(204).json(Respuesta.exito(null, "Plato actualizado"));
-          res.status(204).send();
-        }
-      } catch (err) {
-        logMensaje("Error :" + err);
-        res
-          .status(500)
-          .json(
-            Respuesta.error(
-              null,
-              `Error al actualizar los datos: ${req.originalUrl}`
-            )
-          );
-      }
+    const artista = req.body; // Recuperamos datos para actualizar
+    const idartista = req.params.idartista; // dato de la ruta
+
+    // Petición errónea, no coincide el id del plato de la ruta con el del objeto a actualizar
+    if (idartista != artista.idartista) {
+      return res
+        .status(400)
+        .json(Respuesta.error(null, "El id del artista no coincide"));
     }
+
+    try {
+      const numFilas = await Artista.update(
+        { ...artista },
+        { where: { idartista } }
+      );
+
+      if (numFilas == 0) {
+        // No se ha encontrado lo que se quería actualizar o no hay nada que cambiar
+        res
+          .status(404)
+          .json(
+            Respuesta.error(null, "No encontrado o no modificado: " + idartista)
+          );
+      } else {
+        // Al dar status 204 no se devuelva nada
+        // res.status(204).json(Respuesta.exito(null, "Plato actualizado"));
+        res.status(204).send();
+      }
+    } catch (err) {
+      logMensaje("Error :" + err);
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al actualizar los datos: ${req.originalUrl}`
+          )
+        );
+    }
+  }
 
   async getArtistaById(req, res) {
     // Implementa la lógica para recuperar una obra por su id
@@ -97,9 +106,7 @@ class ArtistaController {
       if (fila) {
         res.json(Respuesta.exito(fila, "Artista recuperado"));
       } else {
-        res
-          .status(404)
-          .json(Respuesta.error(null, "Artista no encontrado"));
+        res.status(404).json(Respuesta.error(null, "Artista no encontrado"));
       }
     } catch (err) {
       res
@@ -112,24 +119,35 @@ class ArtistaController {
         );
     }
   }
- 
- async deleteArtista(req, res) {
+
+  async deleteArtista(req, res) {
     const idartista = req.params.idartista;
+    const t = await sequelize.transaction(); // Iniciar transacción
+
     try {
-      const numFilas = await Obra.destroy({
-        where: {
-            idartista: idartista,
-        },
+      // Primero, actualizar las obras asociadas para que idartista sea NULL
+      await Obra.update(
+        { idartista: null }, // Asignar NULL al artista
+        { where: { idartista: idartista }, transaction: t }
+      );
+
+      // Luego, eliminar el artista
+      const numFilas = await Artista.destroy({
+        where: { idartista: idartista },
+        transaction: t,
       });
+
       if (numFilas == 0) {
-        // No se ha encontrado lo que se quería borrar
-        res
+        await t.rollback();
+        return res
           .status(404)
           .json(Respuesta.error(null, "No encontrado: " + idartista));
-      } else {
-        res.status(204).send();
       }
+
+      await t.commit();
+      res.status(204).send();
     } catch (err) {
+      await t.rollback();
       logMensaje("Error :" + err);
       res
         .status(500)
