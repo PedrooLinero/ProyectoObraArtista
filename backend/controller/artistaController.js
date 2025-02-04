@@ -5,7 +5,6 @@ const { logMensaje } = require("../utils/logger.js");
 const initModels = require("../models/init-models.js").initModels;
 // Crear la instancia de sequelize con la conexión a la base de datos
 const sequelize = require("../config/sequelize.js");
-const obras = require("../models/obras.js");
 
 // Cargar las definiciones del modelo en sequelize
 const models = initModels(sequelize);
@@ -120,17 +119,43 @@ class ArtistaController {
     }
   }
 
+  // Implementar el método para buscar por tipo de arte
+  async getArtistaByTipoArte(req, res) {
+    const tipoArte = req.params.tipoArte; // Recuperamos el tipo de arte desde los parámetros de la ruta
+  
+    try {
+      // Busca los artistas por tipo de arte en la base de datos
+      const artistas = await Artista.findAll({
+        where: {
+          tipoArte: tipoArte, // Coincidencia exacta del tipo de arte
+        },
+      });
+  
+      if (artistas.length > 0) {
+        res.json(Respuesta.exito(artistas, "Artistas recuperados"));
+      } else {
+        res.status(404).json(Respuesta.error(null, "No se encontraron artistas con ese tipo de arte"));
+      }
+    } catch (err) {
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al recuperar los artistas por tipo de arte: ${req.originalUrl}`
+          )
+        );
+    }
+  }
+  
+  
+
+
   async deleteArtista(req, res) {
     const idartista = req.params.idartista;
-    const t = await sequelize.transaction(); // Iniciar transacción
+    const t = await sequelize.transaction();
 
     try {
-      // Primero, actualizar las obras asociadas para que idartista sea NULL
-      await Obra.update(
-        { idartista: null }, // Asignar NULL al artista
-        { where: { idartista: idartista }, transaction: t }
-      );
-
       // Luego, eliminar el artista
       const numFilas = await Artista.destroy({
         where: { idartista: idartista },

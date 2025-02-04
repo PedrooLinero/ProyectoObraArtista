@@ -26,6 +26,10 @@ module.exports = function(sequelize, DataTypes) {
     idartista: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    imagen_url:{
+      type: DataTypes.STRING(255),
+      allowNull: false
     }
   }, {
     sequelize,

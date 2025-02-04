@@ -114,6 +114,17 @@ function AltaArtistas() {
               onChange={handleChange}
             />
 
+            {/* País de Nacimiento */}
+            <TextField
+              label="País de Nacimiento"
+              variant="outlined"
+              name="paisDeNacimiento"
+              fullWidth
+              sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+              value={datos.paisDeNacimiento}
+              onChange={handleChange}
+            />
+
             {/* Tipo de Arte */}
             <FormControl fullWidth>
               <InputLabel>Tipo de Arte</InputLabel>
@@ -131,17 +142,6 @@ function AltaArtistas() {
                 <MenuItem value="contemporaneo">Contemporáneo</MenuItem>
               </Select>
             </FormControl>
-
-            {/* País de Nacimiento */}
-            <TextField
-              label="País de Nacimiento"
-              variant="outlined"
-              name="paisDeNacimiento"
-              fullWidth
-              sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
-              value={datos.paisDeNacimiento}
-              onChange={handleChange}
-            />
 
             {/* Botón centrado */}
             <Button

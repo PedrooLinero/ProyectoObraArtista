@@ -20,6 +20,7 @@ function AltaObras() {
     fecha: "",
     precio: "",
     idartista: "",
+    imagen_url: "", // Aquí se almacena la URL de la imagen
   });
 
   const [artistas, setArtistas] = useState([]);
@@ -74,7 +75,7 @@ function AltaObras() {
 
       if (response.ok) {
         alert(respuesta.mensaje);
-        navigate("/");
+        navigate("/");  // Redirige a la página principal
       } else {
         alert("Error: " + respuesta.mensaje);
       }
@@ -151,42 +152,52 @@ function AltaObras() {
               onChange={handleChange}
             />
 
-            <Grid2 container spacing={3}>
+            <Grid2 xs={12} sm={4}>
+              <TextField
+                label="Precio"
+                variant="outlined"
+                name="precio"
+                type="number"
+                fullWidth
+                sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+                value={datos.precio}
+                onChange={handleChange}
+              />
+            </Grid2>
+
+            {/* Aquí cambiamos el campo de imagen para ingresar una URL */}
+            <Grid2 xs={12} sm={6}>
+              <TextField
+                label="Imagen (URL)"
+                variant="outlined"
+                name="imagen_url"
+                fullWidth
+                sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+                value={datos.imagen_url}
+                onChange={handleChange}
+              />
+            </Grid2>
+
+            <Grid2>
               <Grid2 xs={12} sm={4}>
-                <FormControl
-                  fullWidth
-                  sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
-                >
+                <FormControl fullWidth>
                   <InputLabel id="idartista-label">Artista</InputLabel>
                   <Select
                     labelId="idartista-label"
                     id="idartista"
                     value={datos.idartista}
                     onChange={handleChangeSel}
+                    label="Artista"
+                    sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
                   >
                     {artistas.map((artista) => (
-                      <MenuItem
-                        key={artista.idartista}
-                        value={artista.idartista}
-                      >
-                        {artista.nombre} ({artista.paisDeNacimiento}) {/* Aquí mostramos el país de nacimiento */}
+                      <MenuItem key={artista.idartista} value={artista.idartista}>
+                        {artista.nombre} ({artista.paisDeNacimiento})
                       </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
-              </Grid2>
 
-              <Grid2 xs={12} sm={4}>
-                <TextField
-                  label="Precio"
-                  variant="outlined"
-                  name="precio"
-                  type="number"
-                  fullWidth
-                  sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
-                  value={datos.precio}
-                  onChange={handleChange}
-                />
               </Grid2>
             </Grid2>
 

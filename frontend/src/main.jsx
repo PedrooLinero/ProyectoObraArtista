@@ -17,6 +17,9 @@ import AltaArtistas from "./components/AltaArtistas";
 import ListaArtistas from "./components/ListaArtistas";
 import HomeContent from "./components/HomeContent";
 import ModificarArtista from "./components/ModificarArtista";
+import ModificarObra from "./components/ModificarObra";
+import BuscarArtista from "./components/BuscarArtista";
+import BuscarObra from "./components/BuscarObra";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +49,18 @@ const router = createBrowserRouter([
       {
         path: "modificarartista/:idartista",
         element: <ModificarArtista />,
+      }, 
+      {
+        path: "modificarobra/:idobra",
+        element: <ModificarObra />,
+      },
+      {
+        path: "buscarobra/:idartista",
+        element: <BuscarObra />,
+      },
+      {
+        path: "buscarartista/:nombre",
+        element: <BuscarArtista />,
       }
     ],
   },

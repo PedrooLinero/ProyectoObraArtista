@@ -86,58 +86,81 @@ class ObraController {
     }
   }
 
-  // async deleteObra(req, res) {
-  //   const idobra = req.params.idobra;
-  //   try {
-  //     const numFilas = await Obra.destroy({
-  //       where: {
-  //           idobra: idobra,
-  //       },
-  //     });
-  //     if (numFilas == 0) {
-  //       // No se ha encontrado lo que se quería borrar
-  //       res
-  //         .status(404)
-  //         .json(Respuesta.error(null, "No encontrado: " + idobra));
-  //     } else {
-  //       res.status(204).send();
-  //     }
-  //   } catch (err) {
-  //     logMensaje("Error :" + err);
-  //     res
-  //       .status(500)
-  //       .json(
-  //         Respuesta.error(
-  //           null,
-  //           `Error al eliminar los datos: ${req.originalUrl}`
-  //         )
-  //       );
-  //   }
-  // }
+  async deleteObra(req, res) {
+    const idobra = req.params.idobra;
+    try {
+      const numFilas = await Obra.destroy({
+        where: {
+            idobra: idobra,
+        },
+      });
+      if (numFilas == 0) {
+        // No se ha encontrado lo que se quería borrar
+        res
+          .status(404)
+          .json(Respuesta.error(null, "No encontrado: " + idobra));
+      } else {
+        res.status(204).send();
+      }
+    } catch (err) {
+      logMensaje("Error :" + err);
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al eliminar los datos: ${req.originalUrl}`
+          )
+        );
+    }
+  }
 
-  // async getObraById(req, res) {
-  //   // El id plato viene en la ruta /api/platos/:idobra
-  //   const idobra = req.params.idobra;
-  //   try {
-  //     const fila = await Obra.findByPk(idobra);
-  //     if (fila) {
-  //       // Si se ha recuprado un plato
-  //       res.json(Respuesta.exito(fila, "Obra recuperada"));
-  //     } else {
-  //       res.status(404).json(Respuesta.error(null, "Obra no encontrada"));
-  //     }
-  //   } catch (err) {
-  //     logMensaje("Error :" + err);
-  //     res
-  //       .status(500)
-  //       .json(
-  //         Respuesta.error(
-  //           null,
-  //           `Error al recuperar los datos: ${req.originalUrl}`
-  //         )
-  //       );
-  //   }
-  // }
+  async getObraById(req, res) {
+    // El id plato viene en la ruta /api/platos/:idobra
+    const idobra = req.params.idobra;
+    try {
+      const fila = await Obra.findByPk(idobra);
+      if (fila) {
+        // Si se ha recuprado un plato
+        res.json(Respuesta.exito(fila, "Obra recuperada"));
+      } else {
+        res.status(404).json(Respuesta.error(null, "Obra no encontrada"));
+      }
+    } catch (err) {
+      logMensaje("Error :" + err);
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al recuperar los datos: ${req.originalUrl}`
+          )
+        );
+    }
+  }
+
+  async getObraByArtista(req, res) {
+    // El id plato viene en la ruta /api/platos/idartista/:idartista
+    const idartista = req.params.idartista;
+    try {
+      const data = await Obra.findAll({
+        where: {
+          idartista: idartista,
+        },
+      });
+      res.json(Respuesta.exito(data, "Obras recuperadas"));
+    } catch (err) {
+      logMensaje("Error :" + err);
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al recuperar los datos: ${req.originalUrl}`
+          )
+        );
+    }
+  }
 
   
 }

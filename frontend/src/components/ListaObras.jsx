@@ -1,11 +1,13 @@
-import { Typography, Grid2, Card, CardContent, CardMedia, Box, Button } from "@mui/material";
+import { Typography, Grid2, Card, CardContent, CardMedia, CardActions, Box, IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from "@mui/material";
+import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import { apiUrl } from "../pages/config";
-import { useNavigate } from "react-router-dom"; // Para redireccionar
+import { useNavigate } from "react-router-dom";
 
 function ListaObras() {
   const [obras, setObras] = useState([]);
   const [artistas, setArtistas] = useState({});
+  const [obraAEliminar, setObraAEliminar] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,86 +49,95 @@ function ListaObras() {
     getArtistas();
   }, []);
 
-  // Función para eliminar una obra
-  const eliminarObra = async (idobra) => {
-    if (!window.confirm("¿Seguro que quieres eliminar esta obra?")) return;
+  const handleEdit = (idobra) => {
+    navigate(`/modificarobra/${idobra}`);
+  };
 
+  const handleDelete = async () => {
+    if (!obraAEliminar) return;
     try {
-      const response = await fetch(`${apiUrl}/obras/${idobra}`, { method: "DELETE" });
+      const response = await fetch(`${apiUrl}/obras/${obraAEliminar.idobra}`, {
+        method: "DELETE",
+      });
 
       if (response.ok) {
-        setObras(obras.filter((obra) => obra.idobra !== idobra));
+        setObras(obras.filter((obra) => obra.idobra !== obraAEliminar.idobra));
+        setObraAEliminar(null);
       } else {
         console.error("Error al eliminar la obra.");
       }
     } catch (error) {
-      console.error("Error en la solicitud:", error);
+      console.error("Error en la solicitud de eliminación:", error);
     }
   };
 
   return (
     <>
-      <Typography variant="h4" align="center" sx={{ mt: 5, mb: 3 }}>
+    <Typography
+        variant="h4"
+        align="center"
+        sx={{
+          mt: 2,
+          mb: 3,
+          color: "#c98c26",
+          fontWeight: "bold",
+          fontFamily: "'Roboto', sans-serif",
+        }}
+      >
         Listado de Obras
       </Typography>
 
-      <Grid2 container spacing={3} sx={{ mt: 3, justifyContent: "center" }}>
+      <Grid2 container spacing={3} sx={{ mt: 3, mb:2, justifyContent: "center" }}>
         {obras.map((obra) => (
-          <Grid2 item xs={12} sm={6} md={4} key={obra.idobra}>
-            <Card
-              sx={{
-                maxWidth: 345,
-                borderRadius: 3,
-                boxShadow: 10,
-                transition: "transform 0.3s ease-in-out",
-                "&:hover": { transform: "scale(1.05)" },
-              }}
-            >
+          <Grid2 item xs={12} sm={6} lg={3} key={obra.idobra}>
+            <Card sx={{ maxWidth: 345, width: "100%", height: "100%", display: "flex", flexDirection: "column", boxShadow: 3, borderRadius: 2, "&:hover": { transform: "scale(1.05)" } }}>
               <CardMedia
                 component="img"
-                height="200"
-                image={obra.imagen || "default_image.jpg"}
                 alt={obra.nombre}
-                sx={{ borderTopLeftRadius: 3, borderTopRightRadius: 3, objectFit: "cover" }}
+                image={obra.imagen_url || "default_image.jpg"}
+                sx={{ height: "180px", objectFit: "cover", borderTopLeftRadius: 2, borderTopRightRadius: 2 }}
               />
-              <CardContent sx={{ padding: 3 }}>
-                <Typography variant="h6" component="div" sx={{ fontWeight: "bold", textAlign: "center" }}>
+              <CardContent sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <Typography gutterBottom variant="h6" component="div" sx={{ textAlign: "center", mb: 2 }}>
                   {obra.nombre}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", mt: 1 }}>
+                <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", mb: 2 }}>
                   {obra.descripcion}
                 </Typography>
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
+                <Box sx={{ borderTop: "1px solid #ddd", paddingTop: 2, textAlign: "center" }}>
                   <Typography variant="body2" color="text.secondary">
-                    Precio: ${obra.precio}
+                    <strong>Precio:</strong> €{obra.precio}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Artista: {artistas[obra.idartista] || "Desconocido"}
+                    <strong>Artista:</strong> {artistas[obra.idartista] || "Desconocido"}
                   </Typography>
-                </Box>
-                <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="small"
-                    onClick={() => navigate(`/modificar-obra/${obra.idobra}`)}
-                  >
-                    Editar
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="error"
-                    size="small"
-                    onClick={() => eliminarObra(obra.idobra)}
-                  >
-                    Eliminar
-                  </Button>
                 </Box>
               </CardContent>
+              <CardActions sx={{ justifyContent: "center", paddingBottom: "16px" }}>
+                <IconButton onClick={() => handleEdit(obra.idobra)} sx={{ color: "#b57918", "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.1)" } }}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton onClick={() => setObraAEliminar(obra)} sx={{ color: "#b57918", "&:hover": { backgroundColor: "rgba(255, 0, 0, 0.1)" } }}>
+                  <DeleteIcon />
+                </IconButton>
+              </CardActions>
             </Card>
           </Grid2>
         ))}
       </Grid2>
+
+      <Dialog open={Boolean(obraAEliminar)} onClose={() => setObraAEliminar(null)}>
+        <DialogTitle>Confirmar Eliminación</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            ¿Estás seguro de que deseas eliminar la obra &quot;{obraAEliminar?.nombre}&quot;?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setObraAEliminar(null)} color="primary">Cancelar</Button>
+          <Button onClick={handleDelete} color="error">Eliminar</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

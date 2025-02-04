@@ -42,14 +42,17 @@ INSERT INTO artistas (nombre, apellidos, fechaNacimiento, tipoArte, paisDeNacimi
 INSERT INTO obras (nombre, descripcion, fecha, precio, idartista) VALUES
 ('Obra1', 'Descripción1', '2022-01-01', '100.00', 1),
 ('Obra2', 'Descripción2', '2022-02-01', '200.00', 2),
-('Obra3', 'Descripción3', '2022-03-01', '300.00', 3),
-('Obra4', 'Descripción4', '2022-04-01', '400.00', 4),
-('Obra5', 'Descripción5', '2022-05-01', '500.00', 5),
+('Obra3', 'Descripción3', '2022-03-01', '300.00', 1),
+('Obra4', 'Descripción4', '2022-04-01', '400.00', 8),
+('Obra5', 'Descripción5', '2022-05-01', '500.00', 1),
 ('Obra6', 'Descripción6', '2022-06-01', '600.00', 6),
-('Obra7', 'Descripción7', '2022-07-01', '700.00', 7),
-('Obra8', 'Descripción8', '2022-08-01', '800.00', 8),
+('Obra7', 'Descripción7', '2022-07-01', '700.00', 8),
+('Obra8', 'Descripción8', '2022-08-01', '800.00', 1),
 ('Obra9', 'Descripción9', '2022-09-01', '900.00', 9),
 ('Obra10', 'Descripción10', '2022-10-01', '1000.00', 10);
+
+-- Modificar la tabla `obras` para agregar la columna `imagen_url`
+ALTER TABLE obras ADD COLUMN imagen_url VARCHAR(255);
 
 -- Crear índices en las columnas más utilizadas para búsquedas
 CREATE INDEX idx_artista_nombre ON artistas (nombre);
