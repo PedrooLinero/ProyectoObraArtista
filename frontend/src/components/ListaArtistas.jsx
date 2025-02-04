@@ -42,6 +42,7 @@ function ListaArtistas() {
     navigate(`/modificarartista/${idartista}`);
   };
 
+
   const handleDelete = async (idartista) => {
     try {
       const response = await fetch(`${apiUrl}/artistas/${idartista}`, {
