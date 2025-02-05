@@ -26,7 +26,7 @@ function HomeContent() {
                 maxHeight: "600px",
                 objectFit: "cover",
                 maxWidth: "100%",
-                height: "100vh",
+                height: "68vh",
               }}
             />
             <MDBCarouselCaption className="bg-black bg-opacity-50 w-25 mx-auto">
@@ -46,7 +46,7 @@ function HomeContent() {
                 maxHeight: "600px",
                 objectFit: "cover",
                 maxWidth: "100%",
-                height: "100vh",
+                height: "68vh",
               }}
             />
             <MDBCarouselCaption className="bg-black bg-opacity-50 w-25 mx-auto">
@@ -66,7 +66,7 @@ function HomeContent() {
                 maxHeight: "600px",
                 objectFit: "cover",
                 maxWidth: "100%",
-                height: "100vh",
+                height: "68vh",
               }}
             />
             <MDBCarouselCaption className="bg-black bg-opacity-50 w-25 mx-auto">

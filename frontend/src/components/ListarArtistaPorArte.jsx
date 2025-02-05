@@ -107,7 +107,7 @@ function ListarArtistaPorArte() {
 
   return (
     <>
-      <Box sx={{ minHeight: "67vh" }}>
+      <Box sx={{ minHeight: "68.6vh" }}>
         <Typography
           variant="h4"
           align="center"

@@ -1,4 +1,4 @@
-import { Grid, Button, TextField, Typography, Stack, Select, FormControl, InputLabel, MenuItem, InputAdornment } from "@mui/material";
+import { Grid2, Button, TextField, Typography, Stack, Select, FormControl, InputLabel, MenuItem, InputAdornment, Box } from "@mui/material";
 import { AttachMoney, DateRange, Description, Image, Person } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -66,34 +66,96 @@ function ModificarObra() {
 
   return (
     <>
-      <Typography variant="h4" align="center" sx={{ mt: 2, mb: 3, color: "#c98c26", fontWeight: "bold", fontFamily: "'Roboto', sans-serif" }}>
-        Modificar Obra
-      </Typography>
+      <Box>
+        <Typography variant="h4" align="center" sx={{ mt: 2, mb: 3, color: "#c98c26", fontWeight: "bold", fontFamily: "'Roboto', sans-serif" }}>
+          Modificar Obra
+        </Typography>
 
-      <Grid container justifyContent="center" sx={{ mt: 2, mb: 4 }}>
-        <Grid item xs={12} sm={8} md={6}>
-          <Stack component="form" onSubmit={handleSubmit} spacing={4} sx={{ p: 4, borderRadius: 2, boxShadow: 3, backgroundColor: "#f9f9f9" }}>
-            <TextField label="Nombre" variant="standard" name="nombre" fullWidth value={datos.nombre} onChange={handleChange} InputProps={{ startAdornment: (<InputAdornment position="start"><Person sx={{ color: "#c98c26" }} /></InputAdornment>) }} />
-            <TextField label="Fecha de Creación" variant="standard" type="date" name="fecha" fullWidth value={datos.fecha} onChange={handleChange} InputProps={{ startAdornment: (<InputAdornment position="start"><DateRange sx={{ color: "#c98c26" }} /></InputAdornment>) }} />
-            <TextField label="Descripción" variant="standard" name="descripcion" multiline fullWidth value={datos.descripcion} onChange={handleChange} InputProps={{ startAdornment: (<InputAdornment position="start"><Description sx={{ color: "#c98c26" }} /></InputAdornment>) }} />
-            <TextField label="Precio" variant="standard" name="precio" type="number" fullWidth value={datos.precio} onChange={handleChange} InputProps={{ startAdornment: (<InputAdornment position="start"><AttachMoney sx={{ color: "#c98c26" }} /></InputAdornment>) }} />
-            <TextField label="Imagen (URL)" variant="standard" name="imagen_url" fullWidth value={datos.imagen_url} onChange={handleChange} InputProps={{ startAdornment: (<InputAdornment position="start"><Image sx={{ color: "#c98c26" }} /></InputAdornment>) }} />
-            <FormControl fullWidth>
-              <InputLabel id="idartista-label">Artista</InputLabel>
-              <Select labelId="idartista-label" id="idartista" value={datos.idartista} onChange={handleChangeSel} label="Artista">
-                {artistas.map((artista) => (
-                  <MenuItem key={artista.idartista} value={artista.idartista}>
-                    {artista.nombre} ({artista.paisDeNacimiento})
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <Button variant="contained" type="submit" fullWidth sx={{ bgcolor: "#c98c26", "&:hover": { bgcolor: "#a76f1f" }, borderRadius: 2, fontWeight: "bold", padding: "12px", boxShadow: 2 }}>
-              Modificar Obra
-            </Button>
-          </Stack>
-        </Grid>
-      </Grid>
+        <Grid2 container justifyContent="center" sx={{ mt: 2, mb: 4 }}>
+          <Grid2 item size={{ xs: 12, sm: 8, md: 6 }}>
+            <Stack component="form"
+              onSubmit={handleSubmit}
+              spacing={4}
+              sx={{
+                p: 4,
+                borderRadius: 2,
+                boxShadow: 3,
+                backgroundColor: "#f9f9f9",
+              }}>
+              <Grid2 container spacing={3}>
+                <Grid2 item size={{ xs: 12, sm: 6 }}>
+
+                  <TextField label="Nombre" variant="standard" name="nombre" fullWidth value={datos.nombre} onChange={handleChange}
+                    slotProps={{
+                      input: {
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Person sx={{ color: "#c98c26" }} />
+                          </InputAdornment>
+                        ),
+                      },
+                    }} />
+                </Grid2>
+                <Grid2 item size={{ xs: 12, sm: 6 }}>
+                  <TextField label="Fecha de Creación" variant="standard" type="date" name="fecha" fullWidth value={datos.fecha} onChange={handleChange}
+                    slotProps={{
+                      input: {
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <DateRange sx={{ color: "#c98c26" }} />
+                          </InputAdornment>
+                        ),
+                      },
+                    }} />
+                </Grid2>
+              </Grid2>
+              <TextField label="Descripción" variant="standard" name="descripcion" multiline fullWidth value={datos.descripcion} onChange={handleChange}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Description sx={{ color: "#c98c26" }} />
+                      </InputAdornment>
+                    ),
+                  },
+                }} />
+              <TextField label="Precio" variant="standard" name="precio" type="number" fullWidth value={datos.precio} onChange={handleChange}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <AttachMoney sx={{ color: "#c98c26" }} />
+                      </InputAdornment>
+                    ),
+                  },
+                }} />
+              <TextField label="Imagen (URL)" variant="standard" name="imagen_url" fullWidth value={datos.imagen_url} onChange={handleChange}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Image sx={{ color: "#c98c26" }} />
+                      </InputAdornment>
+                    ),
+                  },
+                }} />
+              <FormControl fullWidth>
+                <InputLabel id="idartista-label">Artista</InputLabel>
+                <Select labelId="idartista-label" id="idartista" value={datos.idartista} onChange={handleChangeSel} label="Artista">
+                  {artistas.map((artista) => (
+                    <MenuItem key={artista.idartista} value={artista.idartista}>
+                      {artista.nombre} ({artista.paisDeNacimiento})
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <Button variant="contained" type="submit" fullWidth sx={{ bgcolor: "#c98c26", "&:hover": { bgcolor: "#a76f1f" }, borderRadius: 2, fontWeight: "bold", padding: "12px", boxShadow: 2 }}>
+                Modificar Obra
+              </Button>
+            </Stack>
+          </Grid2>
+        </Grid2>
+      </Box>
     </>
   );
 }

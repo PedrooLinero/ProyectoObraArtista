@@ -44,7 +44,9 @@ function Menu() {
             <Box
               sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
             >
-              <img src={LOGO_MUSEO_ARTE} height="125" alt="Museo de Arte" />
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <img src={LOGO_MUSEO_ARTE} height="125" alt="Museo de Arte" />
+              </Link>
             </Box>
             <IconButton color="inherit" edge="end" onClick={toggleDrawer}>
               <MenuIcon sx={{ color: "#c98c26" }} />
