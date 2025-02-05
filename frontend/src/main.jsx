@@ -18,13 +18,17 @@ import ListaArtistas from "./components/ListaArtistas";
 import HomeContent from "./components/HomeContent";
 import ModificarArtista from "./components/ModificarArtista";
 import ModificarObra from "./components/ModificarObra";
-import BuscarArtista from "./components/BuscarArtista";
-import BuscarObra from "./components/BuscarObra";
+import ListarArtistaPorArte from "./components/ListarArtistaPorArte";
+import ListarObraPorArtista from "./components/ListarObraPorArtista";
+import BuscarObraPorNombre from "./components/BuscarObraPorNombre";
+import BuscarArtistaPorNombre from "./components/BuscarArtistaPorNombre";
+import PaginaError from "./pages/PaginaError";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    errorElement: <PaginaError />,
     children: [
       {
         path: "/",
@@ -55,12 +59,20 @@ const router = createBrowserRouter([
         element: <ModificarObra />,
       },
       {
-        path: "buscarobra/:idartista",
-        element: <BuscarObra />,
+        path: "listarobra/:idartista",
+        element: <ListarObraPorArtista />,
+      },
+      {
+        path: "listarartista/:tipoArte",
+        element: <ListarArtistaPorArte />,
+      },
+      {
+        path: "buscarobra/:nombre",
+        element: <BuscarObraPorNombre />,
       },
       {
         path: "buscarartista/:nombre",
-        element: <BuscarArtista />,
+        element: <BuscarArtistaPorNombre />,
       }
     ],
   },

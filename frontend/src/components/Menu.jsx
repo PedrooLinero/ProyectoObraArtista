@@ -93,9 +93,17 @@ function Menu() {
                   </Link>
                 </ListItem>
                 <ListItem button sx={{ pl: 4 }}>
-                  <Link to="/buscarobra/:idartista" style={{ textDecoration: "none" }}>
+                  <Link to="/buscarobra/:nombre" style={{ textDecoration: "none" }}>
                     <ListItemText
-                      primary="Buscar Obras por su Artista"
+                      primary="Buscar Obra por su Nombre"
+                      sx={{ color: "#d9a95b" }}
+                    />
+                  </Link>
+                </ListItem>
+                <ListItem button sx={{ pl: 4 }}>
+                  <Link to="/listarobra/:idartista" style={{ textDecoration: "none" }}>
+                    <ListItemText
+                      primary="Listar Obras por su Artista"
                       sx={{ color: "#d9a95b" }}
                     />
                   </Link>
@@ -135,7 +143,15 @@ function Menu() {
                 <ListItem button sx={{ pl: 4 }}>
                   <Link to="/buscarartista/:nombre" style={{ textDecoration: "none" }}>
                     <ListItemText
-                      primary="Buscar Artistas por su Arte"
+                      primary="Buscar Artista por su Nombre"
+                      sx={{ color: "#d9a95b" }}
+                    />
+                  </Link>
+                </ListItem>
+                <ListItem button sx={{ pl: 4 }}>
+                  <Link to="/listarartista/:tipoArte" style={{ textDecoration: "none" }}>
+                    <ListItemText
+                      primary="Listar Artistas por su Arte"
                       sx={{ color: "#d9a95b" }}
                     />
                   </Link>

@@ -5,7 +5,7 @@ import { Stack, Button, Select, MenuItem, FormControl, InputLabel } from "@mui/m
 import WarningIcon from '@mui/icons-material/Warning';
 import { apiUrl } from "../pages/config";
 
-function BuscarObra() {
+function ListarObraPorArtista() {
     const [datos, setDatos] = useState({
         idartista: "",
     });
@@ -135,7 +135,7 @@ function BuscarObra() {
                                     boxShadow: 2,
                                 }}
                             >
-                                Buscar Obras del Artista
+                                Listar Obras del Artista
                             </Button>
                         </Stack>
                     </Grid2>
@@ -194,4 +194,4 @@ function BuscarObra() {
     );
 }
 
-export default BuscarObra;
+export default ListarObraPorArtista;
