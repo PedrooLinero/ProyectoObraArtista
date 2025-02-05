@@ -31,3 +31,6 @@ DELETE http://localhost:3000/api/artistas/1
 
 ###
 GET http://localhost:3000/api/artistas/tipoArte/contemporaneo
+
+###
+GET http://localhost:3000/api/artistas/nombre/Artista9

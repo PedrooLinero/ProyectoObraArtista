@@ -6,7 +6,7 @@ USE ObrasArtistas;
 -- Crear la tabla Artistas
 CREATE TABLE artistas (
     idartista INT AUTO_INCREMENT PRIMARY KEY,   -- idartista autoincrementable
-    nombre VARCHAR(100) NOT NULL,               -- Nombre del artista
+    nombre VARCHAR(100) NOT NULL UNIQUE,         -- Nombre del artista, clave única
     apellidos VARCHAR(100),                     -- Apellidos del artista
     fechaNacimiento DATE NOT NULL,              -- Fecha de nacimiento del artista
     tipoArte ENUM('abstracto', 'creativo', 'realista', 'surrealista', 'contemporaneo') NOT NULL, -- Tipo de arte del artista
@@ -16,7 +16,7 @@ CREATE TABLE artistas (
 -- Crear la tabla Obras con ON DELETE SET NULL
 CREATE TABLE obras (
     idobra INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) NOT NULL UNIQUE,         -- Nombre de la obra, clave única
     descripcion TEXT,
     fecha DATE NOT NULL,                       -- Tipo de fecha cambiado a DATE
     precio DECIMAL(10, 2),
@@ -63,3 +63,16 @@ CREATE INDEX idx_artista_tipo ON artistas (tipoArte);
 CREATE INDEX idx_obra_nombre ON obras (nombre);
 CREATE INDEX idx_obra_fecha ON obras (fecha);
 CREATE INDEX idx_obra_precio ON obras (precio);
+
+-- Actualizar la tabla obras con URLs de imágenes
+UPDATE obras SET imagen_url = 'https://hips.hearstapps.com/hmg-prod/images/la-noche-estrellada1-1586872678-6438fc97a96e4.jpg' WHERE idobra = 1;
+UPDATE obras SET imagen_url = 'https://phantom-expansion.unidadeditorial.es/b49de40df87602749238c6fe6746eefb/crop/0x67/1996x1396/resize/828/f/jpg/assets/multimedia/imagenes/2022/03/16/16474305081017.jpg' WHERE idobra = 2;
+UPDATE obras SET imagen_url = 'https://hips.hearstapps.com/hmg-prod/images/the-creation-of-adam-by-michelangelo-is-painted-on-the-news-photo-1652350574.jpg?resize=980:*' WHERE idobra = 3;
+UPDATE obras SET imagen_url = 'https://img.photolamus.com/B4LHCWFS/335x243/c/m/51e30e0cec42ce0686536bc397be6e3c/17-starry-night-over-the-rhone-0-335-x-243.png' WHERE idobra = 4;
+UPDATE obras SET imagen_url = 'https://media.revistaad.es/photos/60c22da019c8e1b95e8d555b/16:9/w_1280,c_limit/202522.jpg' WHERE idobra = 5;
+UPDATE obras SET imagen_url = 'https://cdn.shopify.com/s/files/1/2658/9826/files/La_vaca_amarilla_franz_marc_480x480.jpg' WHERE idobra = 6;
+UPDATE obras SET imagen_url = 'https://i0.wp.com/notiespartano.com/wp-content/uploads/2022/07/Sin-titulo-25.png?fit=760%2C512&ssl=1' WHERE idobra = 7;
+UPDATE obras SET imagen_url = 'https://www.singulart.com/blog/wp-content/uploads/2023/11/Paintings-by-Joan-Miro.jpg' WHERE idobra = 8;
+UPDATE obras SET imagen_url = 'https://cdn.aarp.net/content/dam/aarpe/es/home/entretenimiento/expertos/ernesto-lechner/info-2016/fotos-cuadros-pinturas-arte-para-celebrar-el-amor/_jcr_content/root/container_main/container_body_main/list_container_body1/container_body_cf/body_one_cf_listicle_one/cfimage.coreimg.50.932.jpeg/content/dam/aarp/entertainment/art_music/2016/2016-02/1140-paintings-celebrate-love-klimt-the-kiss-esp.jpg' WHERE idobra = 9;
+UPDATE obras SET imagen_url = 'https://www.muyinteresante.com/wp-content/uploads/sites/5/2023/12/14/657ae191044e5.jpeg' WHERE idobra = 10;
+

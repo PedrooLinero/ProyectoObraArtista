@@ -147,9 +147,6 @@ class ArtistaController {
         );
     }
   }
-  
-  
-
 
   async deleteArtista(req, res) {
     const idartista = req.params.idartista;
@@ -182,6 +179,27 @@ class ArtistaController {
             `Error al eliminar los datos: ${req.originalUrl}`
           )
         );
+    }
+  }
+
+  async getArtistaByNombre(req, res) {
+    const nombre = req.params.nombre;
+    try {
+      const data = await Artista.findOne({
+        where: {
+          nombre: nombre,
+        },
+      });
+      if (data) {
+        res.json(Respuesta.exito(data, "Artista recuperado"));
+      } else {
+        res.status(404).json(Respuesta.error(null, "Artista no encontrado"));
+      }
+    } catch (err) {
+      logMensaje("Error :" + err);
+      res.status(500).json(
+        Respuesta.error(null, `Error al recuperar los datos: ${req.originalUrl}`)
+      );
     }
   }
 }

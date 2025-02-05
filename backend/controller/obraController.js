@@ -162,6 +162,29 @@ class ObraController {
     }
   }
 
+async getObraByNombre(req, res) {
+  const nombre = req.params.nombre;
+  try {
+    const data = await Obra.findOne({
+      where: {
+        nombre: nombre,
+      },
+    });
+    if (data) {
+      res.json(Respuesta.exito(data, "Obra recuperada"));
+    } else {
+      res.status(404).json(Respuesta.error(null, "Obra no encontrada"));
+    }
+  } catch (err) {
+    logMensaje("Error :" + err);
+    res.status(500).json(
+      Respuesta.error(null, `Error al recuperar los datos: ${req.originalUrl}`)
+    );
+  }
+}
+
+  
+
   
 }
 

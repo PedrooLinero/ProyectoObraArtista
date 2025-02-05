@@ -10,6 +10,8 @@ router.post('/', artistaController.createArtista);
 router.delete('/:idartista', artistaController.deleteArtista);
 router.put('/:idartista', artistaController.updateArtista);
 router.get('/tipoArte/:tipoArte', artistaController.getArtistaByTipoArte);
+router.get('/nombre/:nombre', artistaController.getArtistaByNombre);
+
 
 module.exports = router;
 

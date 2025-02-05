@@ -10,5 +10,6 @@ router.post('/', obraController.createObra);
 router.delete('/:idobra', obraController.deleteObra);
 router.put('/:idobra', obraController.updateObra);
 router.get('/idartista/:idartista', obraController.getObraByArtista);
+router.get('/nombre/:nombre', obraController.getObraByNombre);
 
 module.exports = router;
