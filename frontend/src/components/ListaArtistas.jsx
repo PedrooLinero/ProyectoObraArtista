@@ -16,6 +16,7 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  Box,
 } from "@mui/material";
 import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { apiUrl } from "../pages/config";
@@ -84,6 +85,7 @@ function ListaArtistas() {
         Listado de Artistas
       </Typography>
 
+<Box sx={{ display: "flex", justifyContent: "center", mb: 2, mx:4 }}>
       <TableContainer component={Paper} sx={{ boxShadow: 3, borderRadius: 2, mb: 2 }}>
         <Table sx={{ minWidth: 650 }} aria-label="tabla de artistas">
           <TableHead>
@@ -157,6 +159,7 @@ function ListaArtistas() {
           </Button>
         </DialogActions>
       </Dialog>
+    </Box>
     </>
   );
 }

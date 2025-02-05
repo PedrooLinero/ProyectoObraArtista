@@ -85,7 +85,7 @@ function ListarObraPorArtista() {
                         fontFamily: "'Roboto', sans-serif",
                     }}
                 >
-                    Buscar Obras de un Artista
+                    Listar Obras de un Artista
                 </Typography>
                 <Grid2 container justifyContent="center" sx={{ mt: 2, mb: 4 }}>
                     <Grid2 item xs={12} sm={10} md={8}>

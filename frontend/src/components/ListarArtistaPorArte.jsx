@@ -14,6 +14,7 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Box,
 } from "@mui/material";
 import { useState } from "react";
 import { apiUrl } from "../pages/config";
@@ -28,7 +29,6 @@ import { IconButton } from "@mui/material";
 import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
-
 function ListarArtistaPorArte() {
   const [datos, setDatos] = useState({
     tipoArte: "",
@@ -37,7 +37,6 @@ function ListarArtistaPorArte() {
   const [artistas, setArtistas] = useState([]); // Para almacenar los resultados de los artistas
   const [artistaAEliminar, setArtistaAEliminar] = useState(null);
   const navigate = useNavigate();
-
 
   const handleChange = (e) => {
     setDatos({
@@ -108,157 +107,169 @@ function ListarArtistaPorArte() {
 
   return (
     <>
-      <Typography
-        variant="h4"
-        align="center"
-        sx={{
-          mt: 2,
-          mb: 3,
-          color: "#c98c26",
-          fontWeight: "bold",
-          fontFamily: "'Roboto', sans-serif",
-        }}
-      >
-        Buscar Artistas por su Arte
-      </Typography>
+      <Box sx={{ minHeight: "67vh" }}>
+        <Typography
+          variant="h4"
+          align="center"
+          sx={{
+            mt: 2,
+            mb: 3,
+            color: "#c98c26",
+            fontWeight: "bold",
+            fontFamily: "'Roboto', sans-serif",
+          }}
+        >
+          Listar Artistas por su Arte
+        </Typography>
 
-      <Grid2 container justifyContent="center" sx={{ mt: 2, mb: 4 }}>
-        <Grid2 item xs={12} sm={10} md={8}>
-          <Stack
-            component="form"
-            onSubmit={handleSubmit}
-            spacing={4}
-            sx={{
-              p: 4,
-              borderRadius: 2,
-              boxShadow: 3,
-              backgroundColor: "#f9f9f9",
-            }}
-          >
-            {/* Tipo de Arte */}
-            <FormControl fullWidth>
-              <InputLabel>Tipo de Arte</InputLabel>
-              <Select
-                label="Tipo de Arte"
-                name="tipoArte"
-                value={datos.tipoArte}
-                onChange={handleChange}
-                sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
-              >
-                <MenuItem value="abstracto">Abstracto</MenuItem>
-                <MenuItem value="creativo">Creativo</MenuItem>
-                <MenuItem value="realista">Realista</MenuItem>
-                <MenuItem value="surrealista">Surrealista</MenuItem>
-                <MenuItem value="contemporaneo">Contemporáneo</MenuItem>
-              </Select>
-            </FormControl>
-
-            {/* Botón centrado */}
-            <Button
-              variant="contained"
-              type="submit"
-              fullWidth
+        <Grid2 container justifyContent="center" sx={{ mt: 2, mb: 4 }}>
+          <Grid2 item size={{ xs: 12, sm: 8, md: 6 }}>
+            <Stack
+              component="form"
+              onSubmit={handleSubmit}
+              spacing={4}
               sx={{
-                bgcolor: "#c98c26",
-                "&:hover": { bgcolor: "#a76f1f" },
+                p: 4,
                 borderRadius: 2,
-                fontWeight: "bold",
-                padding: "12px",
-                boxShadow: 2,
+                boxShadow: 3,
+                backgroundColor: "#f9f9f9",
               }}
             >
-              Listar Artistas por su Arte
-            </Button>
-          </Stack>
-        </Grid2>
-      </Grid2>
+              {/* Tipo de Arte */}
+              <FormControl fullWidth>
+                <InputLabel>Tipo de Arte</InputLabel>
+                <Select
+                  label="Tipo de Arte"
+                  name="tipoArte"
+                  value={datos.tipoArte}
+                  onChange={handleChange}
+                  sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+                >
+                  <MenuItem value="abstracto">Abstracto</MenuItem>
+                  <MenuItem value="creativo">Creativo</MenuItem>
+                  <MenuItem value="realista">Realista</MenuItem>
+                  <MenuItem value="surrealista">Surrealista</MenuItem>
+                  <MenuItem value="contemporaneo">Contemporáneo</MenuItem>
+                </Select>
+              </FormControl>
 
-      {/* Mostrar la tabla de artistas si hay resultados */}
-      {artistas.length > 0 && (
-        <TableContainer component={Paper} sx={{ mt: 4 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  align="center"
-                  sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
-                >
-                  Nombre
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
-                >
-                  Apellidos
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
-                >
-                  Fecha de Nacimiento
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
-                >
-                  Tipo de Arte
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
-                >
-                  País de Nacimiento
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
-                >
-                  Editar
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
-                >
-                  Eliminar
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {artistas.map((artista) => (
-                <TableRow key={artista.idartista}>
-                  <TableCell align="center">{artista.nombre}</TableCell>
-                  <TableCell align="center">{artista.apellidos}</TableCell>
-                  <TableCell align="center">{artista.fechaNacimiento}</TableCell>
-                  <TableCell align="center">{artista.tipoArte}</TableCell>
-                  <TableCell align="center">{artista.paisDeNacimiento}</TableCell>
-                  <TableCell align="center">
-                    <IconButton
-                      onClick={() => handleEdit(artista.idartista)}
-                      sx={{
-                        color: "#b57918",
-                        "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.1)" },
-                      }}
+              {/* Botón centrado */}
+              <Button
+                variant="contained"
+                type="submit"
+                fullWidth
+                sx={{
+                  bgcolor: "#c98c26",
+                  "&:hover": { bgcolor: "#a76f1f" },
+                  borderRadius: 2,
+                  fontWeight: "bold",
+                  padding: "12px",
+                  boxShadow: 2,
+                }}
+              >
+                Listar Artistas por su Arte
+              </Button>
+            </Stack>
+          </Grid2>
+        </Grid2>
+
+        <Box sx={{ mx: 4, mb: 4 }}>
+          {/* Mostrar la tabla de artistas si hay resultados */}
+          {artistas.length > 0 && (
+            <TableContainer component={Paper} sx={{ mt: 4 }}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell
+                      align="center"
+                      sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
                     >
-                      <EditIcon />
-                    </IconButton>
-                  </TableCell>
-                  <TableCell align="center">
-                    <IconButton
-                      onClick={() => setArtistaAEliminar(artista)}
-                      sx={{
-                        color: "#b57918",
-                        "&:hover": { backgroundColor: "rgba(255, 0, 0, 0.1)" },
-                      }}
+                      Nombre
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
                     >
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+                      Apellidos
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                    >
+                      Fecha de Nacimiento
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                    >
+                      Tipo de Arte
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                    >
+                      País de Nacimiento
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                    >
+                      Editar
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                    >
+                      Eliminar
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {artistas.map((artista) => (
+                    <TableRow key={artista.idartista}>
+                      <TableCell align="center">{artista.nombre}</TableCell>
+                      <TableCell align="center">{artista.apellidos}</TableCell>
+                      <TableCell align="center">
+                        {artista.fechaNacimiento}
+                      </TableCell>
+                      <TableCell align="center">{artista.tipoArte}</TableCell>
+                      <TableCell align="center">
+                        {artista.paisDeNacimiento}
+                      </TableCell>
+                      <TableCell align="center">
+                        <IconButton
+                          onClick={() => handleEdit(artista.idartista)}
+                          sx={{
+                            color: "#b57918",
+                            "&:hover": {
+                              backgroundColor: "rgba(0, 0, 0, 0.1)",
+                            },
+                          }}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                      </TableCell>
+                      <TableCell align="center">
+                        <IconButton
+                          onClick={() => setArtistaAEliminar(artista)}
+                          sx={{
+                            color: "#b57918",
+                            "&:hover": {
+                              backgroundColor: "rgba(255, 0, 0, 0.1)",
+                            },
+                          }}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+        </Box>
+      </Box>
 
       <Dialog
         open={Boolean(artistaAEliminar)}

@@ -86,16 +86,15 @@ function ListaObras() {
       >
         Listado de Obras
       </Typography>
-
       <Grid2 container spacing={3} sx={{ mt: 3, mb:2, justifyContent: "center" }}>
         {obras.map((obra) => (
-          <Grid2 item xs={12} sm={6} lg={3} key={obra.idobra}>
-            <Card sx={{ maxWidth: 345, width: "100%", height: "100%", display: "flex", flexDirection: "column", boxShadow: 3, borderRadius: 2, "&:hover": { transform: "scale(1.05)" } }}>
+          <Grid2 item size={{xs: 12 , sm: 6, lg:3}} key={obra.idobra}>
+            <Card sx={{maxWidth: 345, width: "100%", height: "100%", display: "flex", flexDirection: "column", boxShadow: 3, borderRadius: 2, "&:hover": { transform: "scale(1.05)" } }}>
               <CardMedia
                 component="img"
                 alt={obra.nombre}
                 image={obra.imagen_url || "default_image.jpg"}
-                sx={{ height: "180px", objectFit: "cover", borderTopLeftRadius: 2, borderTopRightRadius: 2 }}
+                sx={{width: 345, maxHeight:180 ,objectFit: "cover", borderTopLeftRadius: 2, borderTopRightRadius: 2 }}
               />
               <CardContent sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <Typography gutterBottom variant="h6" component="div" sx={{ textAlign: "center", mb: 2 }}>

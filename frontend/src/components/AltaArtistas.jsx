@@ -1,8 +1,21 @@
-import { Typography, TextField, Stack, Button, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
+import {
+  Typography,
+  TextField,
+  Stack,
+  Button,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiUrl } from "../pages/config";
+import { DateRange, Person } from "@mui/icons-material";
+import InputAdornment from "@mui/material/InputAdornment";
+import PublicIcon from '@mui/icons-material/Public';
+
 
 function AltaArtistas() {
   const [datos, setDatos] = useState({
@@ -64,7 +77,7 @@ function AltaArtistas() {
       </Typography>
 
       <Grid2 container justifyContent="center" sx={{ mt: 2, mb: 4 }}>
-        <Grid2 item xs={12} sm={10} md={8}>
+        <Grid2 item size={{ xs: 12, sm: 8, md: 6 }}>
           <Stack
             component="form"
             onSubmit={handleSubmit}
@@ -78,52 +91,94 @@ function AltaArtistas() {
           >
             {/* Nombre y Apellidos en la misma fila */}
             <Grid2 container spacing={3}>
-              <Grid2 xs={12} sm={6}>
+              <Grid2 item size={{ xs: 12, sm: 6 }}>
                 <TextField
                   label="Nombre"
-                  variant="outlined"
+                  variant="standard"
                   name="nombre"
                   fullWidth
-                  sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+                  sx={{ "& .MuiInput-root": { borderRadius: 2 } }}
                   value={datos.nombre}
                   onChange={handleChange}
+                  slotProps={{
+                    input: {
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Person sx={{ color: "#c98c26" }} />
+                        </InputAdornment>
+                      ),
+                    },
+                  }}
                 />
               </Grid2>
-              <Grid2 xs={12} sm={6}>
+              <Grid2 item size={{ xs: 12, sm: 6 }}>
                 <TextField
                   label="Apellidos"
-                  variant="outlined"
+                  variant="standard"
                   name="apellidos"
                   fullWidth
-                  sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+                  sx={{ "& .MuiInput-root": { borderRadius: 2 } }}
                   value={datos.apellidos}
                   onChange={handleChange}
+                  slotProps={{
+                    input: {
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Person sx={{ color: "#c98c26" }} />
+                        </InputAdornment>
+                      ),
+                    },
+                  }}
                 />
               </Grid2>
             </Grid2>
 
-            {/* Fecha de Nacimiento */}
-            <TextField
-              label="Fecha de Nacimiento"
-              variant="outlined"
-              type="date"
-              name="fechaNacimiento"
-              fullWidth
-              sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
-              value={datos.fechaNacimiento}
-              onChange={handleChange}
-            />
+            <Grid2 container spacing={3}>
+              <Grid2 item size={{ xs: 12, sm: 6 }}>
+                {/* Fecha de Nacimiento */}
+                <TextField
+                  label="Fecha de Nacimiento"
+                  variant="standard"
+                  type="date"
+                  name="fechaNacimiento"
+                  fullWidth
+                  sx={{ "& .MuiInput-root": { borderRadius: 2 } }}
+                  value={datos.fechaNacimiento}
+                  onChange={handleChange}
+                  slotProps={{
+                    input: {
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <DateRange sx={{ color: "#c98c26" }} />
+                        </InputAdornment>
+                      ),
+                    },
+                  }}
+                />
+              </Grid2>
 
-            {/* País de Nacimiento */}
-            <TextField
-              label="País de Nacimiento"
-              variant="outlined"
-              name="paisDeNacimiento"
-              fullWidth
-              sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
-              value={datos.paisDeNacimiento}
-              onChange={handleChange}
-            />
+              <Grid2 item size={{ xs: 12, sm: 6 }}>
+                {/* País de Nacimiento */}
+                <TextField
+                  label="País de Nacimiento"
+                  variant="standard"
+                  name="paisDeNacimiento"
+                  fullWidth
+                  sx={{ "& .MuiInput-root": { borderRadius: 2 } }}
+                  value={datos.paisDeNacimiento}
+                  onChange={handleChange}
+                  slotProps={{
+                    input: {
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <PublicIcon sx={{ color: "#c98c26" }} />
+                        </InputAdornment>
+                      ),
+                    },
+                  }}
+                />
+              </Grid2>
+            </Grid2>
 
             {/* Tipo de Arte */}
             <FormControl fullWidth>
@@ -133,7 +188,7 @@ function AltaArtistas() {
                 name="tipoArte"
                 value={datos.tipoArte}
                 onChange={handleChange}
-                sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }}
+                sx={{ "& .MuiInput-root": { borderRadius: 2 } }}
               >
                 <MenuItem value="abstracto">Abstracto</MenuItem>
                 <MenuItem value="creativo">Creativo</MenuItem>
