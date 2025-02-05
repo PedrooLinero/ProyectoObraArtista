@@ -1,0 +1,38 @@
+// vincular proyecto visual con GITHUB
+
+ - Creamos primero el repositorio en GitHub y copiamos la dirección de enlace
+
+- Luego añadimos los siguientes comandos
+*******************************************************
+git init
+
+git remote add origin ruta_del_repositorio
+
+git add .
+
+git commit -m "primer commit"
+
+git checkout -b main
+
+git push -u origin main
+
+*************************** 
+ESTO ES PARA QUE NO SALGA NODE-MODULE EN FRONTEND NI BACKEND EN GITHUB (DEBEMOS SACAR .gitignore FUERA DE FRONTEND ) 
+
+
+git rm -r --cached .   
+
+git add .
+
+git commit -m "segundo commit obra-artista" 
+
+git push -u origin main --force
+
+*****************************************
+GUARDAR CAMBIOS CADA VEZ QUE QUERAMOS HACER UN COMMIT: 
+
+git add .
+
+git commit -m "segundo commit obra-artista" 
+
+git push -u origin main
