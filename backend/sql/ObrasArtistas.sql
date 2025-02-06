@@ -52,25 +52,25 @@ INSERT INTO artistas (nombre, apellidos, fechaNacimiento, tipoArte, paisDeNacimi
 -- Insertar datos en la tabla Obras
 INSERT INTO obras (nombre, descripcion, fecha, precio, idartista) VALUES
 ('Guernica', 'Una de las obras más emblemáticas de Picasso que muestra la devastación de la guerra.', '1937-04-27', '2000000.00', 1),
-('La Noche Estrellada', 'Una famosa pintura de Van Gogh que representa un cielo nocturno lleno de estrellas.', '1889-06-01', '1500000.00', 2),
+('La Noche Estrellada', 'Una famosa pintura de Van Gogh que representa un cielo nocturno lleno de estrellas.', '1889-06-01', '1500000.00', 4),
 ('Impresión, Sol Naciente', 'Una obra fundamental en el movimiento impresionista, creada por Monet.', '1872-11-13', '1000000.00', 3),
-('La Persistencia de la Memoria', 'Una de las pinturas más conocidas de Dalí, famosa por sus relojes derretidos.', '1931-04-01', '1800000.00', 4),
-('Las Dos Fridas', 'Obra famosa de Frida Kahlo que representa su dualidad como persona y artista.', '1939-07-08', '1200000.00', 5),
+('La Persistencia de la Memoria', 'Una de las pinturas más conocidas de Dalí, famosa por sus relojes derretidos.', '1931-04-01', '1800000.00', 6),
+('Las Dos Fridas', 'Obra famosa de Frida Kahlo que representa su dualidad como persona y artista.', '1939-07-08', '1200000.00', 1),
 ('La Última Cena', 'Una de las pinturas más reconocidas de Leonardo da Vinci, que representa el momento de la última cena de Jesús con sus apóstoles.', '1495-12-31', '5000000.00', 6),
 ('La Danza', 'Una de las obras más importantes de Matisse que representa figuras humanas en movimiento.', '1910-01-01', '2200000.00', 7),
 ('Campbell\s Soup Cans', 'Una serie de latas de sopa que representa la idea de la producción en masa en el arte pop de Warhol.', '1962-01-01', '1500000.00', 8),
 ('Convergence', 'Obra de Pollock que representa el estilo de pintura conocido como “drip painting”.', '1952-01-01', '1900000.00', 9),
-('Jimson Weed', 'Una pintura que captura la belleza de la flor Jimson Weed, famosa de O\Keeffe.', '1936-01-01', '2000000.00', 10),
-('Man at the Crossroads', 'Un mural famoso de Rivera que representa los avances tecnológicos y científicos.', '1934-01-01', '2500000.00', 11),
+('Jimson Weed', 'Una pintura que captura la belleza de la flor Jimson Weed, famosa de O\Keeffe.', '1936-01-01', '2000000.00', 1),
+('Man at the Crossroads', 'Un mural famoso de Rivera que representa los avances tecnológicos y científicos.', '1934-01-01', '2500000.00', 13),
 ('The Artist is Present', 'Una performance de Marina Abramović donde ella se sentaba en silencio frente a los espectadores.', '2010-03-14', '300000.00', 12),
-('El Hijo del Hombre', 'Obra conocida de Magritte, que representa a un hombre con un sombrero, cuyo rostro está cubierto por una manzana flotante.', '1964-09-01', '1300000.00', 13),
+('El Hijo del Hombre', 'Obra conocida de Magritte, que representa a un hombre con un sombrero, cuyo rostro está cubierto por una manzana flotante.', '1964-09-01', '1300000.00', 11),
 ('El Grito', 'Una pintura famosa de Munch que expresa angustia y desesperación.', '1893-12-01', '3500000.00', 14),
-('El Carnaval de Arlequín', 'Una obra de Miró que muestra su estilo surrealista único.', '1924-01-01', '2700000.00', 15),
+('El Carnaval de Arlequín', 'Una obra de Miró que muestra su estilo surrealista único.', '1924-01-01', '2700000.00', 1),
 ('No. 61 (Rust and Blue)', 'Una pintura de Rothko que muestra colores vibrantes y formas abstractas.', '1953-01-01', '1400000.00', 16),
-('A Bigger Splash', 'Una pintura pop-art de Hockney que muestra una figura saltando al agua en una piscina.', '1967-01-01', '2200000.00', 17),
+('A Bigger Splash', 'Una pintura pop-art de Hockney que muestra una figura saltando al agua en una piscina.', '1967-01-01', '2200000.00', 13),
 ('El Beso', 'Una de las obras más famosas de Klimt que representa el amor romántico entre dos personas.', '1907-01-01', '5000000.00', 18),
-('La Casa con Tejado Rojo', 'Una pintura que muestra la vida rural, famosa de Chagall.', '1917-01-01', '1500000.00', 19),
-('Le Moulin de la Galette', 'Una pintura de Renoir que representa una escena alegre de la vida parisina.', '1876-01-01', '2500000.00', 20);
+('La Casa con Tejado Rojo', 'Una pintura que muestra la vida rural, famosa de Chagall.', '1917-01-01', '1500000.00', 4),
+('Le Moulin de la Galette', 'Una pintura de Renoir que representa una escena alegre de la vida parisina.', '1876-01-01', '2500000.00', 12);
 -- Modificar la tabla `obras` para agregar la columna `imagen_url`
 ALTER TABLE obras ADD COLUMN imagen_url VARCHAR(255);
 
