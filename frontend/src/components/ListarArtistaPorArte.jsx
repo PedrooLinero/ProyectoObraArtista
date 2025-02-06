@@ -107,7 +107,7 @@ function ListarArtistaPorArte() {
 
   return (
     <>
-      <Box sx={{ minHeight: "68.6vh" }}>
+      <Box sx={{ minHeight: "67vh" }}>
         <Typography
           variant="h4"
           align="center"
@@ -176,8 +176,11 @@ function ListarArtistaPorArte() {
         <Box sx={{ mx: 4, mb: 4 }}>
           {/* Mostrar la tabla de artistas si hay resultados */}
           {artistas.length > 0 && (
-            <TableContainer component={Paper} sx={{ mt: 4 }}>
-              <Table>
+            <TableContainer
+              component={Paper}
+              sx={{ boxShadow: 3, borderRadius: 2, mb: 2 }}
+            >
+              <Table sx={{ minWidth: 650 }} aria-label="tabla de artistas">
                 <TableHead>
                   <TableRow>
                     <TableCell
@@ -226,7 +229,13 @@ function ListarArtistaPorArte() {
                 </TableHead>
                 <TableBody>
                   {artistas.map((artista) => (
-                    <TableRow key={artista.idartista}>
+                    <TableRow
+                      key={artista.idartista}
+                      sx={{
+                        "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.05)" },
+                        transition: "background-color 0.3s ease",
+                      }}
+                    >
                       <TableCell align="center">{artista.nombre}</TableCell>
                       <TableCell align="center">{artista.apellidos}</TableCell>
                       <TableCell align="center">

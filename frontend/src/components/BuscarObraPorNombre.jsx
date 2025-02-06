@@ -25,6 +25,7 @@ import { useNavigate } from "react-router-dom";
 import { DialogContentText } from "@mui/material";
 import PaletteIcon from "@mui/icons-material/Palette";
 import InputAdornment from "@mui/material/InputAdornment";
+import WarningIcon from "@mui/icons-material/Warning";
 
 function BuscarObraPorNombre() {
   const [nombre, setNombre] = useState("");
@@ -156,14 +157,14 @@ function BuscarObraPorNombre() {
                   value={nombre}
                   onChange={handleChange}
                   slotProps={{
-                input: {
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <PaletteIcon sx={{ color: "#c98c26" }} />
-                    </InputAdornment>
-                  ),
-                },
-              }}
+                    input: {
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <PaletteIcon sx={{ color: "#c98c26" }} />
+                        </InputAdornment>
+                      ),
+                    },
+                  }}
                 />
               </Box>
 
@@ -192,8 +193,8 @@ function BuscarObraPorNombre() {
 
         {/* Mostrar la imagen y los resultados en una tabla */}
         {obra && (
-          <Box sx={{ mt: 4, textAlign: "center" }}>
-            <Grid2 container spacing={4} justifyContent="center">
+          <Box sx={{ mt: 4, mx:2, textAlign: "center" }}>
+            <Grid2 container spacing={2} justifyContent="center">
               <Grid2
                 item
                 size={{ xs: 12, sm: 4 }}
@@ -207,7 +208,7 @@ function BuscarObraPorNombre() {
                       maxWidth: "100%",
                       height: "auto",
                       borderRadius: "8px",
-                      maxHeight: "300px", // Limitar la altura de la imagen
+                      maxHeight: "300px",
                       marginBottom: "20px",
                     }}
                   />
@@ -220,25 +221,59 @@ function BuscarObraPorNombre() {
                 justifyContent="center"
                 alignItems="center"
               >
-                <TableContainer sx={{ maxWidth: "100%" }}>
-                  <Table>
+                <TableContainer sx={{ boxShadow: 3, borderRadius: 2, mx: 2 }}>
+                  <Table sx={{ minWidth: 650 }} aria-label="tabla de artistas">
                     <TableHead>
-                      <TableRow>
-                        <TableCell>Nombre</TableCell>
-                        <TableCell>Descripción</TableCell>
-                        <TableCell>Precio</TableCell>
-                        <TableCell>Fecha</TableCell>
-                        <TableCell>Editar</TableCell>
-                        <TableCell>Eliminar</TableCell>
+                      <TableRow
+                        sx={{
+                          "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.05)" },
+                          transition: "background-color 0.3s ease",
+                        }}
+                      >
+                        <TableCell
+                          sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                        >
+                          Nombre
+                        </TableCell>
+                        <TableCell
+                          sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                        >
+                          Descripción
+                        </TableCell>
+                        <TableCell
+                          sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                        >
+                          Precio
+                        </TableCell>
+                        <TableCell
+                          sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                        >
+                          Fecha
+                        </TableCell>
+                        <TableCell
+                          sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                        >
+                          Editar
+                        </TableCell>
+                        <TableCell
+                          sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                        >
+                          Eliminar
+                        </TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      <TableRow>
+                      <TableRow
+                        sx={{
+                          "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.05)" },
+                          transition: "background-color 0.3s ease",
+                        }}
+                      >
                         <TableCell>{obra.nombre}</TableCell>
                         <TableCell>{obra.descripcion}</TableCell>
                         <TableCell>{`$${obra.precio}`}</TableCell>
                         <TableCell>{obra.fecha}</TableCell>
-                        <TableCell align="center">
+                        <TableCell>
                           <IconButton
                             onClick={() => handleEdit(obra.idobra)}
                             sx={{
@@ -251,7 +286,7 @@ function BuscarObraPorNombre() {
                             <EditIcon />
                           </IconButton>
                         </TableCell>
-                        <TableCell align="center">
+                        <TableCell>
                           <IconButton
                             onClick={() => setObraAEliminar(obra)}
                             sx={{
@@ -276,7 +311,11 @@ function BuscarObraPorNombre() {
 
       {/* Modal si no se encuentra la obra */}
       <Dialog open={openModal} onClose={handleCloseModal}>
-        <DialogTitle>Obra no encontrada</DialogTitle>
+        <DialogTitle>
+          {" "}
+          <WarningIcon sx={{ color: "orange", mr: 1 }} />
+          Advertencia
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             No se encontró ninguna obra con el nombre <strong>{nombre}</strong>.

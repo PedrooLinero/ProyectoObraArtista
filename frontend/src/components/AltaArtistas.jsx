@@ -16,7 +16,6 @@ import { DateRange, Person } from "@mui/icons-material";
 import InputAdornment from "@mui/material/InputAdornment";
 import PublicIcon from '@mui/icons-material/Public';
 
-
 function AltaArtistas() {
   const [datos, setDatos] = useState({
     nombre: "",
@@ -30,6 +29,7 @@ function AltaArtistas() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Datos enviados:", datos);
 
     try {
       const response = await fetch(apiUrl + "/artistas", {
@@ -40,16 +40,23 @@ function AltaArtistas() {
         body: JSON.stringify(datos),
       });
 
+      console.log("Respuesta del servidor:", response);
+
       if (response.ok) {
         const respuesta = await response.json();
+        console.log("Respuesta JSON:", respuesta);
         alert(respuesta.mensaje);
         if (respuesta.ok) {
           navigate("/"); // Volver a la página principal
         }
+      } else {
+        const errorData = await response.json();
+        console.error("Error en la respuesta:", errorData);
+        alert("Error: " + errorData.mensaje);
       }
     } catch (error) {
-      console.error("Error:", error);
-      alert("Error:", error);
+      console.error("Error en la solicitud:", error);
+      alert("Error en la solicitud:", error);
     }
   };
 

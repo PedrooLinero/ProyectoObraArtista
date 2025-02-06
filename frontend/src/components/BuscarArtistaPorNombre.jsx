@@ -18,7 +18,7 @@ import { apiUrl } from "../pages/config";
 import WarningIcon from "@mui/icons-material/Warning";
 import { useNavigate } from "react-router-dom";
 import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
-import BrushIcon from '@mui/icons-material/Brush';
+import BrushIcon from "@mui/icons-material/Brush";
 import InputAdornment from "@mui/material/InputAdornment";
 
 function BuscarArtistaPorNombre() {
@@ -194,84 +194,90 @@ function BuscarArtistaPorNombre() {
           <CircularProgress sx={{ display: "block", margin: "20px auto" }} />
         )}
 
-{/* Mostrar los datos del artista */}
-{artista && (
-  <Box
-    sx={{
-      mt: 3,
-      width: "100%",
-      maxWidth: 500,
-      margin: "20px auto",
-      padding: 2,
-      borderRadius: 2,
-      boxShadow: 2,
-      backgroundColor: "#fff",
-      textAlign: "center",
-      transition: "all 0.2s ease",
-      "&:hover": {
-        transform: "scale(1.02)",
-        boxShadow: 4,
-      },
-    }}
-  >
-    <Typography
-      variant="h6"
-      sx={{
-        fontWeight: "bold",
-        color: "#333",
-        fontSize: "1.125rem",
-        textTransform: "capitalize",
-        mb: 1,
-      }}
-    >
-      {artista.nombre} {artista.apellidos}
-    </Typography>
+        {/* Mostrar los datos del artista */}
+        {artista && (
+          <Box
+            sx={{
+              mt: 3,
+              width: "100%",
+              maxWidth: 500,
+              margin: "20px auto",
+              padding: 2,
+              borderRadius: 2,
+              boxShadow: 2,
+              backgroundColor: "#fff",
+              textAlign: "center",
+              transition: "all 0.2s ease",
+              "&:hover": {
+                transform: "scale(1.02)",
+                boxShadow: 4,
+              },
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                color: "#333",
+                fontSize: "1.125rem",
+                textTransform: "capitalize",
+                mb: 1,
+              }}
+            >
+              {artista.nombre} {artista.apellidos}
+            </Typography>
 
-    <Typography
-      variant="body2"
-      sx={{ mt: 1, color: "#555", fontSize: "0.95rem", lineHeight: 1.5 }}
-    >
-      <strong>Fecha de Nacimiento:</strong>{" "}
-      {artista.fechaNacimiento || "No disponible."}
-    </Typography>
-    <Typography
-      variant="body2"
-      sx={{ mt: 1, color: "#777", fontSize: "0.9rem", lineHeight: 1.5 }}
-    >
-      <strong>Tipo de Arte:</strong>{" "}
-      {artista.tipoArte || "No especificado."}
-    </Typography>
-    <Typography
-      variant="body2"
-      sx={{ mt: 1, color: "#777", fontSize: "0.9rem", lineHeight: 1.5 }}
-    >
-      <strong>País de Nacimiento:</strong>{" "}
-      {artista.paisDeNacimiento || "No especificado."}
-    </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                mt: 1,
+                color: "#555",
+                fontSize: "0.95rem",
+                lineHeight: 1.5,
+              }}
+            >
+              <strong>Fecha de Nacimiento:</strong>{" "}
+              {artista.fechaNacimiento || "No disponible."}
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ mt: 1, color: "#777", fontSize: "0.9rem", lineHeight: 1.5 }}
+            >
+              <strong>Tipo de Arte:</strong>{" "}
+              {artista.tipoArte || "No especificado."}
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ mt: 1, color: "#777", fontSize: "0.9rem", lineHeight: 1.5 }}
+            >
+              <strong>País de Nacimiento:</strong>{" "}
+              {artista.paisDeNacimiento || "No especificado."}
+            </Typography>
 
-    <Box sx={{ display: "flex", justifyContent: "center", gap: 1, mt: 2 }}>
-      <IconButton
-        onClick={() => handleEdit(artista.idartista)}
-        sx={{
-          color: "#b57918",
-          "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.1)" },
-        }}
-      >
-        <EditIcon />
-      </IconButton>
-      <IconButton
-        onClick={() => setArtistaAEliminar(artista)}
-        sx={{
-          color: "#b57918",
-          "&:hover": { backgroundColor: "rgba(255, 0, 0, 0.1)" },
-        }}
-      >
-        <DeleteIcon />
-      </IconButton>
-    </Box>
-  </Box>
-)}
-
+            <Box
+              sx={{ display: "flex", justifyContent: "center", gap: 1, mt: 2 }}
+            >
+              <IconButton
+                onClick={() => handleEdit(artista.idartista)}
+                sx={{
+                  color: "#b57918",
+                  "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.1)" },
+                }}
+              >
+                <EditIcon />
+              </IconButton>
+              <IconButton
+                onClick={() => setArtistaAEliminar(artista)}
+                sx={{
+                  color: "#b57918",
+                  "&:hover": { backgroundColor: "rgba(255, 0, 0, 0.1)" },
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Box>
+          </Box>
+        )}
       </Box>
 
       {/* Modal de advertencia cuando no hay resultados */}
