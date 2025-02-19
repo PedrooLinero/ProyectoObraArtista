@@ -31,7 +31,11 @@ app.use("/api/artistas", artistaRoutes);
 //   res.sendFile(path.join(__dirname, "public", "old_js_vainilla","index.html"));
 // });
 
-// Iniciar el servidor
-app.listen(port, () => {
-  console.log(`Servidor escuchando en el puerto ${port}`);
-});
+// Iniciar el servidor solo si no estamos en modo de prueba
+if (process.env.NODE_ENV !== "test") {
+  app.listen(config.port, () => {
+  console.log(`Servidor escuchando en el puerto ${config.port}`);
+  });
+  }
+  // Exportamos la aplicación para poder hacer pruebas
+  module.exports = app;
