@@ -9,6 +9,8 @@ const obraRoutes = require("./routes/obraRoutes");
 const artistaRoutes = require("./routes/artistaRoutes");
 // const pedidoRoutes = require("./routes/pedidoRoutes");
 
+// Importar configuración
+const config = require("./config/config");
 
 const app = express();
 const port = process.env.PORT || 3000;

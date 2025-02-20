@@ -118,6 +118,17 @@ function Menu() {
                       />
                     </Link>
                   </ListItem>
+                  <ListItem button sx={{ pl: 4 }}>
+                    <Link
+                      to="/graficaobras"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <ListItemText
+                        primary="Gráfica de Obras por Artista"
+                        sx={{ color: "#d9a95b" }}
+                      />
+                    </Link>
+                  </ListItem>
                 </List>
               </Collapse>
 

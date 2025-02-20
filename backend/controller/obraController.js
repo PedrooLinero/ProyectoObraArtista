@@ -10,8 +10,44 @@ const sequelize = require("../config/sequelize.js");
 const models = initModels(sequelize);
 // Recuperar el modelo obra
 const Obra = models.obras;
+const Artista = models.artistas;
 
 class ObraController {
+  // grafica que muestra el numero de obras por el id del artista
+  async getGraficaObras(req, res) {
+    try {
+      const obrasGrafica = await Obra.findAll({
+        attributes: [
+          'idartista',
+          [sequelize.fn('COUNT', sequelize.col('idobra')), 'numeroObras']
+        ],
+        include: [
+          {
+            model: Artista,
+            as: 'artista',
+            attributes: ['nombre'],
+            required: false 
+
+          }
+        ],
+        group: ['idartista', 'artista.nombre'],
+        raw: true
+      });
+      res.json({
+        exito: true,
+        datos: obrasGrafica,
+        mensaje: "Datos de obras recuperados"
+      });
+    } catch (error) {
+      console.error("Error al recuperar los datos de las obras", error);
+      res.status(500).json({
+        exito: false,
+        mensaje: `Error al recuperar los datos de las obras: ${req.originalUrl}`
+      });
+    }
+  }
+  
+
   async createObra(req, res) {
     // Implementa la lógica para crear una nueva obra
     const obra = req.body;

@@ -34,6 +34,16 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'obras',
-    timestamps: false
+    timestamps: false,
+    indexes: [
+      {
+        name: "PRIMARY",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "idobra" },
+        ]
+      },
+    ]
   });
 };

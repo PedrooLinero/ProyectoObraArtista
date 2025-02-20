@@ -32,7 +32,24 @@ module.exports = function (sequelize, DataTypes) {
     {
       sequelize,
       tableName: "artistas",
-      timestamps: false, // Evita problemas con createdAt y updatedAt
+      timestamps: false,
+      indexes: [
+        {
+          name: "PRIMARY",
+          unique: true,
+          using: "BTREE",
+          fields: [
+            { name: "idartista" },
+          ]
+        },
+        {
+          name: "FK_OBRAS",
+          using: "BTREE",
+          fields: [
+            { name: "idobra" },
+          ]
+        },
+      ]
     }
   );
 };

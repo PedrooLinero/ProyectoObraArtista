@@ -23,6 +23,7 @@ import ListarObraPorArtista from "./components/ListarObraPorArtista";
 import BuscarObraPorNombre from "./components/BuscarObraPorNombre";
 import BuscarArtistaPorNombre from "./components/BuscarArtistaPorNombre";
 import PaginaError from "./pages/PaginaError";
+import GraficaObras from "./components/GraficaObras";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: "listarobra/:idartista",
         element: <ListarObraPorArtista />,
+      },
+      {
+        path: "graficaobras",
+        element: <GraficaObras />,
       },
       {
         path: "listarartista/:tipoArte",
