@@ -1,21 +1,22 @@
-
 // Importaciones
 import { Box } from "@mui/system";
 import {
-    MDBCarousel,
-    MDBCarouselItem,
-    MDBCarouselCaption,
-    } from "mdb-react-ui-kit";
+  MDBCarousel,
+  MDBCarouselItem,
+  MDBCarouselCaption,
+} from "mdb-react-ui-kit";
 import FONDO_2 from "../assets/FONDO_2.jpg";
 import OBRA_CARD from "../assets/OBRA_CARD.jpg";
 import ARTISTA_CARD from "../assets/ARTISTA_CARD.png";
 
-
-
+/**
+ * Componente que muestra el contenido principal de la página de inicio con un carrusel de imágenes.
+ * @component
+ */
 function HomeContent() {
   return (
     <>
-    <Box sx={{ mt: 1, mb: 1 }}>
+      <Box sx={{ mt: 1, mb: 1 }}>
         <MDBCarousel showControls showIndicators className="mb-0">
           <MDBCarouselItem itemId={1}>
             <img

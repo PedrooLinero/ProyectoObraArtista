@@ -8,6 +8,10 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
+/**
+ * Componente para modificar un artista existente.
+ * @returns {JSX.Element} El componente de modificación de artista.
+ */
 function ModificarArtista() {
   const params = useParams();
   const [datos, setDatos] = useState({
@@ -21,6 +25,7 @@ function ModificarArtista() {
 
   const navigate = useNavigate();
 
+  // Obtener los datos del artista al cargar el componente
   useEffect(() => {
     async function getArtistaById() {
       let response = await fetch(apiUrl + "/artistas/" + datos.idartista);
@@ -36,6 +41,10 @@ function ModificarArtista() {
     getArtistaById();
   }, []);
 
+  /**
+   * Maneja el envío del formulario para actualizar el artista.
+   * @param {Event} e - El evento de envío del formulario.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(apiUrl + "/artistas/" + datos.idartista, {
@@ -52,6 +61,10 @@ function ModificarArtista() {
     }
   };
 
+  /**
+   * Maneja el cambio de los campos del formulario.
+   * @param {Event} e - El evento de cambio.
+   */
   const handleChange = (e) => {
     setDatos({ ...datos, [e.target.name]: e.target.value });
   };

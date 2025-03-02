@@ -1,3 +1,8 @@
+/**
+ * Componente para listar artistas por tipo de arte.
+ * @returns {JSX.Element} El componente de listado de artistas.
+ */
+
 import { Typography } from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
 import {
@@ -38,6 +43,10 @@ function ListarArtistaPorArte() {
   const [artistaAEliminar, setArtistaAEliminar] = useState(null);
   const navigate = useNavigate();
 
+  /**
+   * Maneja el cambio en los campos del formulario.
+   * @param {Object} e - El evento de cambio.
+   */
   const handleChange = (e) => {
     setDatos({
       ...datos,
@@ -45,6 +54,9 @@ function ListarArtistaPorArte() {
     });
   };
 
+  /**
+   * Maneja la confirmación de eliminación de un artista.
+   */
   const handleDeleteConfirm = async () => {
     if (!artistaAEliminar) return;
 
@@ -73,10 +85,18 @@ function ListarArtistaPorArte() {
     }
   };
 
+  /**
+   * Navega a la página de edición de un artista.
+   * @param {number} idartista - El ID del artista a editar.
+   */
   const handleEdit = (idartista) => {
     navigate(`/modificarartista/${idartista}`);
   };
 
+  /**
+   * Maneja el envío del formulario para listar artistas por tipo de arte.
+   * @param {Object} e - El evento de envío del formulario.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(datos);

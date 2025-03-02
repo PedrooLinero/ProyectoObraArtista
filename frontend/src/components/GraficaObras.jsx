@@ -6,15 +6,21 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  Legend,
   Cell,
 } from "recharts";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { apiUrl } from "../pages/config.js";
 
+/**
+ * Componente que muestra una gráfica de barras con el número de obras por artista.
+ * @component
+ */
 function GraficaObras() {
   const [datos, setDatos] = useState([]);
 
+  // Colores para las barras de la gráfica
   const COLORS = [
     "#0088FE",
     "#00C49F",
@@ -68,6 +74,7 @@ function GraficaObras() {
     "#FA8072",
   ];
 
+  // Hook para obtener los datos de la gráfica al cargar el componente
   useEffect(() => {
     async function getDatosGraficaObras() {
       try {
@@ -91,6 +98,7 @@ function GraficaObras() {
     getDatosGraficaObras();
   }, []);
 
+  // Calcular el máximo número de obras para ajustar el dominio del eje Y
   const maxNumeroObras = Math.max(...datos.map((item) => item.numeroObras + 2));
 
   return (
@@ -111,19 +119,17 @@ function GraficaObras() {
       </Typography>
       <Box sx={{ display: "flex", justifyContent: "center", mt: 4, mb: 8 }}>
         <BarChart width={1000} height={450} data={datos}>
-          {" "}
-          {/* Aumenté la altura del gráfico */}
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="name"
-            label={{ value: "Artista", position: "bottom", offset: 20 }} // Mueve la etiqueta más abajo
+            label={{ value: "Artista", position: "bottom", offset: 20 }}
             tick={{
-              angle: 0, // No rotar las etiquetas
-              textAnchor: "middle", // Centra las etiquetas en el eje X
-              verticalAnchor: "middle", // Centra verticalmente las etiquetas
-              dy: 10, // Ajusta el espaciado para que las etiquetas no se peguen
+              angle: 0,
+              textAnchor: "middle",
+              verticalAnchor: "middle",
+              dy: 10,
             }}
-            interval={0} // Asegura que todas las etiquetas sean visibles
+            interval={0}
           />
           <YAxis
             label={{
@@ -134,12 +140,10 @@ function GraficaObras() {
             domain={[0, maxNumeroObras]}
           />
           <Tooltip />
+          <Legend />
           <Bar dataKey="numeroObras">
             {datos.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Bar>
         </BarChart>

@@ -29,6 +29,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { apiUrl } from "../pages/config";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Componente para listar las obras de un artista seleccionado.
+ * @returns {JSX.Element} El componente de listado de obras por artista.
+ */
 function ListarObraPorArtista() {
   const [datos, setDatos] = useState({ idartista: "" });
   const [artistas, setArtistas] = useState([]);
@@ -40,6 +44,7 @@ function ListarObraPorArtista() {
 
   const navigate = useNavigate();
 
+  // Obtener la lista de artistas al cargar el componente
   useEffect(() => {
     async function getArtistas() {
       try {
@@ -55,6 +60,9 @@ function ListarObraPorArtista() {
     getArtistas();
   }, []);
 
+  /**
+   * Maneja la confirmación de eliminación de una obra.
+   */
   const handleDeleteConfirm = async () => {
     if (!obraAEliminar) return;
 
@@ -83,14 +91,26 @@ function ListarObraPorArtista() {
     }
   };
 
+  /**
+   * Maneja el cambio de selección del artista.
+   * @param {Event} event - El evento de cambio.
+   */
   const handleChangeSel = (event) => {
     setDatos({ ...datos, idartista: event.target.value });
   };
 
+  /**
+   * Navega a la página de edición del artista.
+   * @param {number} idartista - El ID del artista a editar.
+   */
   const handleEdit = (idartista) => {
     navigate(`/modificarartista/${idartista}`);
   };
 
+  /**
+   * Maneja el envío del formulario para listar las obras del artista seleccionado.
+   * @param {Event} e - El evento de envío del formulario.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -118,6 +138,9 @@ function ListarObraPorArtista() {
     }
   };
 
+  /**
+   * Cierra el modal de advertencia.
+   */
   const handleCloseModal = () => {
     setOpenModal(false);
   };

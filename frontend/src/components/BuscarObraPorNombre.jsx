@@ -27,6 +27,10 @@ import PaletteIcon from "@mui/icons-material/Palette";
 import InputAdornment from "@mui/material/InputAdornment";
 import WarningIcon from "@mui/icons-material/Warning";
 
+/**
+ * Componente para buscar una obra por su nombre.
+ * @returns {JSX.Element} El componente BuscarObraPorNombre.
+ */
 function BuscarObraPorNombre() {
   const [nombre, setNombre] = useState("");
   const [obra, setObra] = useState(null);
@@ -36,14 +40,25 @@ function BuscarObraPorNombre() {
 
   const navigate = useNavigate();
 
+  /**
+   * Maneja el cambio en el campo de texto de búsqueda.
+   * @param {React.ChangeEvent<HTMLInputElement>} e - El evento de cambio.
+   */
   const handleChange = (e) => {
     setNombre(e.target.value);
   };
 
+  /**
+   * Navega a la página de edición de la obra.
+   * @param {number} idobra - El ID de la obra a editar.
+   */
   const handleEdit = (idobra) => {
     navigate(`/modificarobra/${idobra}`);
   };
 
+  /**
+   * Confirma la eliminación de la obra seleccionada.
+   */
   const handleDeleteConfirm = async () => {
     if (!obraAEliminar) return;
 
@@ -64,6 +79,9 @@ function BuscarObraPorNombre() {
     }
   };
 
+  /**
+   * Busca una obra por su nombre.
+   */
   const buscarObra = async () => {
     if (nombre.trim() === "") return;
 
@@ -99,11 +117,18 @@ function BuscarObraPorNombre() {
     }
   };
 
+  /**
+   * Maneja el envío del formulario de búsqueda.
+   * @param {React.FormEvent<HTMLFormElement>} e - El evento de envío del formulario.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     buscarObra();
   };
 
+  /**
+   * Cierra el modal de advertencia.
+   */
   const handleCloseModal = () => {
     setOpenModal(false);
   };

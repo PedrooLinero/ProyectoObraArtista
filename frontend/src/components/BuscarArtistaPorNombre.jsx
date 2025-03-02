@@ -21,6 +21,10 @@ import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import BrushIcon from "@mui/icons-material/Brush";
 import InputAdornment from "@mui/material/InputAdornment";
 
+/**
+ * Componente para buscar un artista por su nombre.
+ * @returns {JSX.Element} El componente BuscarArtistaPorNombre.
+ */
 function BuscarArtistaPorNombre() {
   const [nombre, setNombre] = useState("");
   const [artista, setArtista] = useState(null);
@@ -30,10 +34,17 @@ function BuscarArtistaPorNombre() {
   const [artistaAEliminar, setArtistaAEliminar] = useState(null); // Artista a eliminar
   const navigate = useNavigate();
 
+  /**
+   * Maneja el cambio en el campo de texto de búsqueda.
+   * @param {React.ChangeEvent<HTMLInputElement>} e - El evento de cambio.
+   */
   const handleChange = (e) => {
     setNombre(e.target.value);
   };
 
+  /**
+   * Busca un artista por su nombre.
+   */
   const buscarArtista = async () => {
     if (nombre.trim() === "") return;
 
@@ -76,19 +87,33 @@ function BuscarArtistaPorNombre() {
     }
   };
 
+  /**
+   * Maneja el envío del formulario de búsqueda.
+   * @param {React.FormEvent<HTMLFormElement>} e - El evento de envío del formulario.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     buscarArtista();
   };
 
+  /**
+   * Cierra el modal de advertencia.
+   */
   const handleCloseModal = () => {
     setOpenModal(false);
   };
 
+  /**
+   * Navega a la página de edición del artista.
+   * @param {number} idartista - El ID del artista a editar.
+   */
   const handleEdit = (idartista) => {
     navigate(`/modificarartista/${idartista}`);
   };
 
+  /**
+   * Confirma la eliminación del artista seleccionado.
+   */
   const handleDelete = async () => {
     if (!artistaAEliminar) return;
     try {

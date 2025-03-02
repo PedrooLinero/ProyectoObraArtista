@@ -4,6 +4,10 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { apiUrl } from "../pages/config";
 
+/**
+ * Componente para modificar una obra existente.
+ * @returns {JSX.Element} El componente de modificación de obra.
+ */
 function ModificarObra() {
   const params = useParams();
   const navigate = useNavigate();
@@ -19,6 +23,7 @@ function ModificarObra() {
   });
   const [artistas, setArtistas] = useState([]);
 
+  // Obtener los datos de la obra y la lista de artistas al cargar el componente
   useEffect(() => {
     async function fetchData() {
       try {
@@ -40,6 +45,10 @@ function ModificarObra() {
     fetchData();
   }, []);
 
+  /**
+   * Maneja el envío del formulario para actualizar la obra.
+   * @param {Event} e - El evento de envío del formulario.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(apiUrl + "/obras/" + datos.idobra, {
@@ -56,10 +65,18 @@ function ModificarObra() {
     }
   };
 
+  /**
+   * Maneja el cambio de los campos del formulario.
+   * @param {Event} e - El evento de cambio.
+   */
   const handleChange = (e) => {
     setDatos({ ...datos, [e.target.name]: e.target.value });
   };
 
+  /**
+   * Maneja el cambio de selección del artista.
+   * @param {Event} e - El evento de cambio.
+   */
   const handleChangeSel = (e) => {
     setDatos({ ...datos, idartista: e.target.value });
   };
@@ -84,7 +101,6 @@ function ModificarObra() {
               }}>
               <Grid2 container spacing={3}>
                 <Grid2 item size={{ xs: 12, sm: 6 }}>
-
                   <TextField label="Nombre" variant="standard" name="nombre" fullWidth value={datos.nombre} onChange={handleChange}
                     slotProps={{
                       input: {

@@ -14,9 +14,17 @@ import { useNavigate } from "react-router-dom";
 import { apiUrl } from "../pages/config";
 import { DateRange, Person } from "@mui/icons-material";
 import InputAdornment from "@mui/material/InputAdornment";
-import PublicIcon from '@mui/icons-material/Public';
+import PublicIcon from "@mui/icons-material/Public";
 
+/**
+ * Componente para el formulario de alta de artistas.
+ * @component
+ */
 function AltaArtistas() {
+  /**
+   * Estado para almacenar los datos del formulario.
+   * @type {Object}
+   */
   const [datos, setDatos] = useState({
     nombre: "",
     apellidos: "",
@@ -27,6 +35,10 @@ function AltaArtistas() {
 
   const navigate = useNavigate();
 
+  /**
+   * Manejar el envío del formulario.
+   * @param {Object} e - Evento de envío.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Datos enviados:", datos);
@@ -60,6 +72,10 @@ function AltaArtistas() {
     }
   };
 
+  /**
+   * Manejar cambios en los campos del formulario.
+   * @param {Object} e - Evento de cambio.
+   */
   const handleChange = (e) => {
     setDatos({
       ...datos,

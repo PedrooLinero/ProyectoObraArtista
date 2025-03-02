@@ -21,7 +21,15 @@ import {
   Image,
 } from "@mui/icons-material"; // Importar los íconos
 
+/**
+ * Componente para el formulario de alta de obras.
+ * @component
+ */
 function AltaObras() {
+  /**
+   * Estado para almacenar los datos del formulario.
+   * @type {Object}
+   */
   const [datos, setDatos] = useState({
     nombre: "",
     descripcion: "",
@@ -31,9 +39,16 @@ function AltaObras() {
     imagen_url: "", // Aquí se almacena la URL de la imagen
   });
 
+  /**
+   * Estado para almacenar la lista de artistas.
+   * @type {Array}
+   */
   const [artistas, setArtistas] = useState([]);
   const navigate = useNavigate();
 
+  /**
+   * Efecto para obtener la lista de artistas al cargar el componente.
+   */
   useEffect(() => {
     async function getArtistas() {
       try {
@@ -53,6 +68,10 @@ function AltaObras() {
     getArtistas();
   }, []);
 
+  /**
+   * Manejar cambios en los campos del formulario.
+   * @param {Object} e - Evento de cambio.
+   */
   const handleChange = (e) => {
     setDatos({
       ...datos,
@@ -60,6 +79,10 @@ function AltaObras() {
     });
   };
 
+  /**
+   * Manejar cambios en el campo de selección de artista.
+   * @param {Object} event - Evento de cambio.
+   */
   const handleChangeSel = (event) => {
     setDatos({
       ...datos,
@@ -67,6 +90,10 @@ function AltaObras() {
     });
   };
 
+  /**
+   * Manejar el envío del formulario.
+   * @param {Object} e - Evento de envío.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 

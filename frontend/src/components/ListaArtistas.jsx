@@ -22,6 +22,10 @@ import {
 import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { apiUrl } from "../pages/config";
 
+/**
+ * Componente que muestra una lista de artistas en una tabla con opciones para editar y eliminar.
+ * @component
+ */
 function ListaArtistas() {
   const [artistas, setArtistas] = useState([]);
   const [artistaAEliminar, setArtistaAEliminar] = useState(null);
@@ -29,6 +33,7 @@ function ListaArtistas() {
   const [rowsPerPage, setRowsPerPage] = useState(4);
   const navigate = useNavigate();
 
+  // Hook para obtener la lista de artistas al cargar el componente
   useEffect(() => {
     async function getArtistas() {
       try {
@@ -47,10 +52,17 @@ function ListaArtistas() {
     getArtistas();
   }, []);
 
+  /**
+   * Maneja la edición de un artista redirigiendo a la página de modificación.
+   * @param {number} idartista - ID del artista a editar.
+   */
   const handleEdit = (idartista) => {
     navigate(`/modificarartista/${idartista}`);
   };
 
+  /**
+   * Maneja la confirmación de eliminación de un artista.
+   */
   const handleDeleteConfirm = async () => {
     if (!artistaAEliminar) return;
 
@@ -79,10 +91,19 @@ function ListaArtistas() {
     }
   };
 
+  /**
+   * Maneja el cambio de página en la tabla.
+   * @param {object} event - Evento de cambio de página.
+   * @param {number} newPage - Nueva página seleccionada.
+   */
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
+  /**
+   * Maneja el cambio de filas por página en la tabla.
+   * @param {object} event - Evento de cambio de filas por página.
+   */
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -221,7 +242,7 @@ function ListaArtistas() {
               page={page}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
-              labelRowsPerPage= <strong>Artistas por página</strong>
+              labelRowsPerPage={<strong>Artistas por página</strong>}
               labelDisplayedRows={({ from, to, count }) => {
                 return `${from}-${to} de ${
                   count !== -1 ? count : `más de ${to}`
